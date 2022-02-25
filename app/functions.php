@@ -62,12 +62,17 @@ function LoadPage()
 }
 
 //adomány szervezet
-//! ez is bugos
+//*Kijavítva
 function beEllenoriz($AEmail, $AJelszo, $conn)
 {
     //session elnevezése
-    //! $_SESSION["adomanyozo"] = $_POST[$AEmail];
+    //// $_SESSION["adomanyozo"] = $_POST[$AEmail];
     $stmt = $conn->prepare("SELECT email, jelszo from adomanyszerv where email =? and jelszo=?");
+
+    $stmt->execute([
+        $AEmail,
+        hash("sha512", $AJelszo)
+    ]);
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -76,12 +81,14 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
         $_SESSION["felhasz"] = true;
         echo json_encode(true);
     } else {
+        echo json_encode(false);
         false;
     }
 }
 
 //! bugos fos
-function Regisztral($nev, $leiras, $email, $jelszo, $conn) {
+function Regisztral($nev, $leiras, $email, $jelszo, $conn)
+{
     //*has jelszó
     $hashjelszo = password_hash($jelszo, "sha512");
 
@@ -129,31 +136,32 @@ function Bejelentkez($email, $jelsz, $conn)
     ]);
 
     //Eredmény
-    $row =$stmt->fetch(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
     }
 }
 
-function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn) {
+function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
+{
     $errors = [];
 
-    if(mb_strlen($vnev) < 2)
+    if (mb_strlen($vnev) < 2)
         $errors[] = "A vezetéknévnek legalább 2 karakteresnek kell lennie!";
-    if(mb_strlen($knev) < 3)
+    if (mb_strlen($knev) < 3)
         $errors[] = "A keresztnévnek legalább 3 karakteresnek kell lennie!";
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         $errors[] = "Az email cím nem megfelelő formátumú!";
-    if(mb_strlen($jelsz) < 8)
+    if (mb_strlen($jelsz) < 8)
         $errors[] = "A jelszónak legalább 8 karakteresnek kell lennie!";
 
     //ha nincs hiba
-    if(empty($errors)) {
+    if (empty($errors)) {
         $stmt = $conn->prepare("INSERT INTO felhasz 
         (keresztnev, vezeteknev, email, jelszo, telefonszam, fabatka, becenev)
         VALUES(?,?,?,?,?,?,?)");
-    
+
         $stmt->execute([
             $knev, $vnev,
             $email, hash("sha512", $jelsz),
@@ -162,6 +170,6 @@ function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn) {
 
         return true;
     }
-    
+
     return $errors;
 }
