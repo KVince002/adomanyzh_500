@@ -1,5 +1,10 @@
 <?php
 require_once "../app/functions.php";
-Bejelentkez($_POST["email"], $_POST["jelsz"], $conn);
-FelhaszRegisztral($_POST["vnev"], $_POST["knev"], $_POST["bnev"], $_POST["email"], $_POST["telsz"], $_POST["jelsz"], $conn);
-exit();
+//gyors javítás
+if (isset($_POST["funkcio"])) {
+    if ($_POST["Bejelentkez"]) {
+        Bejelentkez($_POST["email"], $_POST["jelsz"], $conn);
+    } elseif ($_POST["FelhaszRegisztral"]) {
+        FelhaszRegisztral($_POST["vnev"], $_POST["knev"], $_POST["bnev"], $_POST["email"], $_POST["telsz"], $_POST["jelsz"], $conn);
+    }
+}

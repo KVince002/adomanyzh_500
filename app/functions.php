@@ -151,6 +151,7 @@ function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
         $errors[] = "A vezetéknévnek legalább 2 karakteresnek kell lennie!";
     if (mb_strlen($knev) < 3)
         $errors[] = "A keresztnévnek legalább 3 karakteresnek kell lennie!";
+    //email validáció
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         $errors[] = "Az email cím nem megfelelő formátumú!";
     if (mb_strlen($jelsz) < 8)
@@ -169,7 +170,11 @@ function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
         ]);
 
         return true;
+        echo json_encode(true);
+    } else {
+        echo json_encode(false);
     }
+
 
     return $errors;
 }

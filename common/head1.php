@@ -14,4 +14,5 @@
     <link rel="stylesheet" href="<?= BASEURL ?>/assets/styles/login.css">
     <link rel="stylesheet" href="<?= BASEURL ?>/assets/styles/singup.css">
     <link rel="stylesheet" href="<?= BASEURL ?>/assets/styles/kartyanazet.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/assets/styles/footer.css">
 </head>

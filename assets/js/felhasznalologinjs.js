@@ -50,7 +50,7 @@ function Regisztral() {
 
     console.log("Bejövő adat kezelése: " + vnev + " ; " + knev + " ; " + bnev + " ; " + email + " ; " + telsz + " ; " + jelsz);
     const formData = new FormData();
-    formData.append("function", "FelhaszRegisztral");
+    formData.append("funkcio", "FelhaszRegisztral");
     formData.append("vnev", vnev);
     formData.append("knev", knev);
     formData.append("bnev", bnev);
@@ -64,9 +64,10 @@ function Regisztral() {
         .then(Response => Response.text())
         .then(Request => {
             console.log(Request);
-            if (Request == "siker") {
+            if (Request === true) {
                 alert("Sikeres regisztrálás!")
                 //todo valahogy az interfaceoldara jutás
+                window.location.href = "";
             } else {
                 alert("Sikertelen regisztráció!")
                 console.log(Response);
