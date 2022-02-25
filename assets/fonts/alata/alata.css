@@ -1,0 +1,9 @@
+/* alata-regular */
+@font-face {
+	font-family: Alata;
+	font-style: normal;
+	font-weight: 400;
+	src: local("Alata Regular"), local("Alata-Regular"), url(alata-regular.woff2) format("woff2");
+	font-display: auto;
+}
+

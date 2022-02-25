@@ -1,0 +1,1 @@
+const baseUrl = location.protocol + "//" + location.host + "/adomany_500";

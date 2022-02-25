@@ -1,0 +1,34 @@
+/*Másolva az material desgin oldalról, majd általan át szerkesztve*/
+.demo-card-wide.mdl-card {
+    width: 50%;
+  margin: auto;
+    padding: 20px;
+  }
+  .demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 50%;
+    background-color: #7f0000;
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #62727b;
+  }
+body{
+  background-color: #37474f;
+}
+footer{
+    position: fixed;
+    padding: 10px 10px 10px 10px;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: #102027;
+    /*border-radius: 15px 15px 0px 0px;*/
+    align-content: center;
+  }
+
+@media screen and (max-width: 400px){
+  .demo-card-wide.mdl-card {
+    width: 75%;
+  margin: auto;
+  }
+}
