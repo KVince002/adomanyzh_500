@@ -60,7 +60,7 @@ function Regisztral() {
     .then(request => {
       console.log(request);
 
-      if (request == true) {
+      if (request === true) {
         console.log(request);
         console.log("Sikeres regisztráció");
         alert("Sikeres regisztráció");
