@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById(FelhasznaloBejelentez).addEventListener("click", Bejelentkez);
-    document.getElementById(FelhasznaloRegisztral).addEventListener("click", Regisztral);
+    //document.getElementById("FBejelentez").addEventListener("click", Bejelentkez);
+    document.getElementById("FelhasznaloRegisztral").addEventListener("click", Regisztral);
 })
 function Bejelentkez() {
     console.log("Bejelentkez() fut");
@@ -50,14 +50,14 @@ function Regisztral() {
 
     console.log("Bejövő adat kezelése: " + vnev + " ; " + knev + " ; " + bnev + " ; " + email + " ; " + telsz + " ; " + jelsz);
     const formData = new FormData();
-    formData.append("funkcio", "FelhaszRegisztral");
+    formData.append("funkcio", "FRegisztral");
     formData.append("vnev", vnev);
     formData.append("knev", knev);
     formData.append("bnev", bnev);
     formData.append("email", email);
     formData.append("telsz", telsz);
     formData.append("jelsz", jelsz);
-    fetch("felhasznalologinphp.php", {
+    fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
     })
@@ -66,12 +66,11 @@ function Regisztral() {
             console.log(Request);
             if (Request === true) {
                 alert("Sikeres regisztrálás!")
-                //todo valahogy az interfaceoldara jutás
+                //// valahogy az interfaceoldara jutás
                 window.location.href = "";
             } else {
-                alert("Sikertelen regisztráció!")
-                console.log(Response);
-                console.log(Request);
+                ////console.log(Response);
+                console.log(Request); alert("Sikertelen regisztráció!")
             }
         })
     console.log("Regisztral() vége");

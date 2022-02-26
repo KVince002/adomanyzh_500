@@ -13,7 +13,7 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Adok neki!</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="fooldal.php">Főoldal</a>
+            <a class="mdl-navigation__link" href="foOldal.php">Főoldal</a>
             <a class="mdl-navigation__link" href="felhasznalo_login.php">Profil</a>
             <a class="mdl-navigation__link" href="../adomanyzh2REWORK/adomany_login.php">Adománygyűjtőknek</a>
             <a class="mdl-navigation__link" href=rolunk.php>Rólunk</a>

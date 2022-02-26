@@ -89,41 +89,35 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
 //! bugos fos
 function Regisztral($nev, $leiras, $email, $jelszo, $conn)
 {
-    //*has jelszó
-    $hashjelszo = password_hash($jelszo, "sha512");
+    $errors = [];
+    if (mb_strlen($nev) < 2)
+        $errors[] = "A vezetéknévnek legalább 2 karakteresnek kell lennie!";
+    if (mb_strlen($leiras) < 3)
+        $errors[] = "A keresztnévnek legalább 3 karakteresnek kell lennie!";
+    //email validáció
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        $errors[] = "Az email cím nem megfelelő formátumú!";
+    if (mb_strlen($jelszo) < 8)
+        $errors[] = "A jelszónak legalább 8 karakteresnek kell lennie!";
 
-    $felt = "INSERT INTO adomanyszerv (nev, leiras, email, jelszo) VALUES (:nev, :leiras, :email, :jelszo);";
+    //*ha nincs hiba
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO adomanyszerv (nev, leiras, email, jelszo) VALUES(?,?,?,?)");
 
-    //*értékek
-    $eretkek = [":nev" => $nev, ":leiras" => $leiras, ":email" => $email, ":jelszo" => $hashjelszo];
-
-    try {
-        $stmt = $conn->prepare($felt);
-
-        $stmt->bindParam(":nev", $nev);
-        $stmt->bindParam(":leiras", $leiras);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":jelszo", $hashjelszo);
-
-        $stmt->execute();
+        $stmt->execute([
+            $nev, $leiras,
+            $email, hash("sha512", $jelszo)
+        ]);
         echo json_encode(true);
-    } catch (PDOException $hiba) {
-        echo $hiba->getMessage();
-        die();
+        return true;
+    } else {
+        echo json_encode($errors);
+        echo json_encode(false);
     }
 
-    // try {
-    //     $stmt = $conn->prepare($felt);
-    //     $stmt->execute($eretkek);
-    //     echo json_encode(true);
-    // } catch (PDOException $hiba) {
-    //     echo "Hiba történt";
-    //     echo $hiba;
-    //     echo json_encode($hiba->getMessage());
-    //     die();
-    // }
-}
 
+    return $errors;
+}
 //felhasználók
 function Bejelentkez($email, $jelsz, $conn)
 //? lehet, hogy gond az ezonos nevű paraméterek
@@ -142,8 +136,8 @@ function Bejelentkez($email, $jelsz, $conn)
         $_SESSION["userID"] = $row["id"];
     }
 }
-
-function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
+//felhasználó regisztáció
+function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
 {
     $errors = [];
 
@@ -157,7 +151,7 @@ function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
     if (mb_strlen($jelsz) < 8)
         $errors[] = "A jelszónak legalább 8 karakteresnek kell lennie!";
 
-    //ha nincs hiba
+    //*ha nincs hiba
     if (empty($errors)) {
         $stmt = $conn->prepare("INSERT INTO felhasz 
         (keresztnev, vezeteknev, email, jelszo, telefonszam, fabatka, becenev)
@@ -168,10 +162,10 @@ function FelhaszRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
             $email, hash("sha512", $jelsz),
             $telsz, 25000, $bnev
         ]);
-
-        return true;
         echo json_encode(true);
+        return true;
     } else {
+        echo json_encode($errors);
         echo json_encode(false);
     }
 
