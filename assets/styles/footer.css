@@ -6,8 +6,19 @@
     background: #102027;
     /*border-radius: 15px 15px 0px 0px;*/
     align-content: center;
+  flex-direction:row;
+  flex-wrap:wrap;
+  align-content:space-around;
   }
-
+.mdl-mini-footer__link-list{
+  display:flex;
+  flex-direction:row;
+  align-content:space-around;
+}
+a{
+  margin:inherit;
+  
+}
 #AdminLOG{
   color: #62727b;
 }
