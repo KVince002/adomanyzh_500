@@ -14,7 +14,7 @@
         <span class="mdl-layout-title">Adok neki!</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="foOldal.php">Főoldal</a>
-            <a class="mdl-navigation__link" href="felhasznalo_login.php">Profil</a>
+            <a class="mdl-navigation__link" href="felhasznalo_login.php">Felhasználói profil</a>
             <a class="mdl-navigation__link" href="adomany_login.php">Adománygyűjtőknek</a>
             <a class=" mdl-navigation__link" href=rolunk.php>Rólunk</a>
         </nav>
