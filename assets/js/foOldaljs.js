@@ -20,12 +20,13 @@ function kartyaGeneral(btTomb) {
     const oldal = document.getElementById("Generalo");
     //kártya keret
     const kKeret = document.createElement("div");
-    kKeret.classList = "mdl-card";
+    kKeret.className = "mdl-card";
     //Kártya cím
     const kCim = document.createElement("div");
     kKeret.classList = "mdl-card__title";
     const kCimSzoveg = document.createElement("h2");
     kCimSzoveg.innerText = btTomb.cim;
+    kCimSzoveg.classList = "mdl-card__title-text";
     //kártya leiras
     const kLeiras = document.createElement("div");
     kLeiras.classList = "mdl-card__supporting-text";
@@ -35,8 +36,6 @@ function kartyaGeneral(btTomb) {
     kKep.classList = "mdl-card__media";
     const kKepImg = document.createElement("img");
     kKepImg.src = btTomb.borito;
-    kKepImg.width = 200;
-    kKepImg.height = 200;
     //kartya gomb
     const kGomb = document.createElement("div");
     kGomb.classList = "mdl-card__actions"
@@ -47,11 +46,13 @@ function kartyaGeneral(btTomb) {
 
     //összerakás
     oldal.appendChild(kKeret);
+    //keret
     kKeret.appendChild(kCim);
-    kCim.appendChild(kCimSzoveg);
     kKeret.appendChild(kKep);
-    kKep.appendChild(kKepImg);
     kKeret.appendChild(kLeiras);
     kKeret.appendChild(kGomb);
+    //részletek
+    kCim.appendChild(kCimSzoveg);
+    kKep.appendChild(kKepImg);
     kGomb.appendChild(kGombButton);
 }
