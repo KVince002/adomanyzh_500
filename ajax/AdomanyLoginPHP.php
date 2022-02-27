@@ -7,5 +7,3 @@ if (isset($_POST["funkcio"])) {
         beEllenoriz($_POST["AEmail"], $_POST["AJelszo"], $conn);
     }
 }
-
-exit();

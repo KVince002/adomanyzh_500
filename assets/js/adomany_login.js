@@ -22,9 +22,9 @@ function beEllenoriz() {
   })
     .then(response => response.text())
     .then(request => {
+      // console.log(request);
       var bejl = JSON.parse(request);
       console.log(bejl);
-
       if (bejl === true) {
         window.location.href = "";
       } else {
