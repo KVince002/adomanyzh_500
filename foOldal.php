@@ -4,7 +4,7 @@ require_once "app/functions.php";
 <!DOCTYPE html>
 <html lang="hu">
 <?php
-require_once "common/head1.php"
+require_once "common/head2.php"
 ?>
 
 <body>
