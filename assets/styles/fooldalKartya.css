@@ -1,0 +1,9 @@
+#generalo{
+  display: flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+}
+.mdl-card{
+  border-radius: 5px;
+  margin: auto;
+}
