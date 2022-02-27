@@ -12,8 +12,10 @@ require_once "common/head1.php"
     require_once "common/public_nav.php";
     ?>
     <main class="mdl-layout__content">
-        <div class="page-content" id="Generalo">
+        <div class="page-content">
+            <div id="Generalo">
 
+            </div>
         </div>
     </main>
     <?php
