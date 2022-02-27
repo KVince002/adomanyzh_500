@@ -65,9 +65,7 @@ function LoadPage()
 //*Kijavítva
 function beEllenoriz($AEmail, $AJelszo, $conn)
 {
-    //session elnevezése
-    //// $_SESSION["adomanyozo"] = $_POST[$AEmail];
-    $stmt = $conn->prepare("SELECT email, jelszo from adomanyszerv where email =? and jelszo=?");
+    $stmt = $conn->prepare("SELECT * from adomanyszerv where email =? and jelszo=?");
 
     $stmt->execute([
         $AEmail,
