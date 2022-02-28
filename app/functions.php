@@ -76,7 +76,7 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
-        $_SESSION["felhasz"] = true;
+        // $_SESSION["felhasz"] = true;
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -212,4 +212,23 @@ function Betoltes($conn)
     //$kartyaClass = new kartya($eredmeny["cim"], $eredmeny["leiras"], $eredmeny["borito"]);
 
     echo json_encode($eredmeny);
+}
+
+//Adomány interface
+//adatok betöltése
+function AdoIntBe($conn)
+{
+    session_start();
+    // $stmt = $conn->prepare("SELECT nev, leiras, nev FROM adomanyszerv WHERE id ="?");
+    // $stmt->execute(
+    //     $_SESSION["userId"]
+    // );
+
+    // $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    // if (!$eredmeny == false) {
+    //     echo json_encode("Sikeres lekérdezés?");
+    // } else {
+    //     echo json_encode($eredmeny);
+    // }
+    echo json_encode($_SESSION["userId"]);
 }

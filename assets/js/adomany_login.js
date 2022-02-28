@@ -26,7 +26,7 @@ function beEllenoriz() {
       var bejl = JSON.parse(request);
       console.log(bejl);
       if (bejl === true) {
-        window.location.href = "";
+        window.location.href = "adomany_interface.php";
       } else {
         console.log("Sikertelen bejelentkezés");
         alert("Sikertelen bejeletkezés");
