@@ -75,6 +75,7 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
+        session_start();
         $_SESSION["userID"] = $row["id"];
         // $_SESSION["felhasz"] = true;
         echo json_encode(true);
@@ -216,19 +217,21 @@ function Betoltes($conn)
 
 //Adomány interface
 //adatok betöltése
-function AdoIntBe($conn)
+function AdoIntBe($conn, $userId)
 {
     session_start();
-    // $stmt = $conn->prepare("SELECT nev, leiras, nev FROM adomanyszerv WHERE id ="?");
-    // $stmt->execute(
-    //     $_SESSION["userId"]
-    // );
+    $stmt = $conn->prepare("SELECT nev, leiras, email FROM adomanyszerv WHERE id =?");
+    $stmt->execute([
+        $userId
+    ]);
 
-    // $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
-    // if (!$eredmeny == false) {
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    // if ($stmt->rowCount() > 0) {
     //     echo json_encode("Sikeres lekérdezés?");
     // } else {
     //     echo json_encode($eredmeny);
     // }
-    echo json_encode($_SESSION["userId"]);
+    echo $userId;
+    //echo json_encode($eredmeny);
+    //echo json_encode($_SESSION["userId"]);
 }

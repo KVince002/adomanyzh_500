@@ -10,17 +10,15 @@ function betoltProfil() {
     })
         .then(response => response.text())
         .then(request => {
-            try {
-                //console.log(request);
-                let szervadat = JSON.parse(request); //adatok json-ba
-                console.log(szervadat);
-                oldalEpit(szervadat);
-            } catch (error) {
-                console.log("Hiba tőrtént " + error);
-            }
+
+            //console.log(request);
+            ////let szervadat = JSON.parse(request); //adatok json-ba
+            ////console.log(szervadat);
+            ////oldalEpit(szervadat);
+            console.log(request);
         })
 }
 
 function oldalEpit(adatTomb) {
-
+    console.log(asd);
 }
