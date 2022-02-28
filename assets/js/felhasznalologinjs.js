@@ -14,31 +14,23 @@ function Bejelentkez() {
     formData.append("funkcio", "Bejelentkez");
     formData.append("email", email);
     formData.append("jelsz", jelsz);
-    fetch("felhasznalologinphp.php", {
+    fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
     })
         .then(Response => Response.text())
         .then(Request => {
-            //ellenőrzés
-            console.log(Request + " ~ " + Response);
-            try {
-                let bejl = JSON.parse(Request)
-                console.log(bejl);
-
-                //*létezik-e a felhasználó ellenőrzés
-                if (!bejl == "Nincs Felhasználó") {
-                    window.location.href = "../FelhasznalóInterface/felhasznalointerface.html"; //! lehet hogy át kell lépni eegy másik mappába
-                } else {
-                    alert("Hibás adatot adott meg a bejelentkezésnél! Próbálja meg újra!");
-                }
-            } catch (error) {
-
+            console.log(Request);
+            var bejl = JSON.parse(Request);
+            if (bejl === true) {
+                //!még nem áll rendelkezésre
+                window.location.href = "";
+            }
+            else {
+                alert("Sikertelen bejelentkezés");
             }
         })
-    console.log("Bejeletkez() vége");
 }
-
 function Regisztral() {
     console.log("Regisztral() fut");
     const vnev = document.getElementById("vnev").value;
@@ -63,14 +55,15 @@ function Regisztral() {
     })
         .then(Response => Response.text())
         .then(Request => {
-            console.log(Request);
+            console.log(JSON.parse(Request));
             if (Request === true) {
+                console.log(JSON.parse(Request));
                 alert("Sikeres regisztrálás!")
-                //// valahogy az interfaceoldara jutás
+                //! valahogy az interfaceoldara jutás
                 window.location.href = "";
             } else {
-                ////console.log(Response);
-                console.log(Request); alert("Sikertelen regisztráció!")
+                console.log(JSON.parse(Request));
+                alert("Sikertelen regisztráció!")
             }
         })
     console.log("Regisztral() vége");

@@ -116,11 +116,11 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
 
     return $errors;
 }
-//felhasználók
+//felhasználó bejelentkez
 function Bejelentkez($email, $jelsz, $conn)
 //? lehet, hogy gond az ezonos nevű paraméterek
 {
-    $stmt = $conn->prepare("SELECT * from adminok where email =? and jelszo ?");
+    $stmt = $conn->prepare("SELECT * from adminok where email =? and jelszo =?");
 
     $stmt->execute([
         $email,
@@ -132,6 +132,10 @@ function Bejelentkez($email, $jelsz, $conn)
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
+        $_SESSION["felhasznalo"] = true;
+        echo json_encode(true);
+    } else {
+        echo json_encode(false);
     }
 }
 //felhasználó regisztáció
@@ -156,9 +160,7 @@ function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
         VALUES(?,?,?,?,?,?,?)");
 
         $stmt->execute([
-            $knev, $vnev,
-            $email, hash("sha512", $jelsz),
-            $telsz, 25000, $bnev
+            $knev, $vnev, $email, hash("sha512", $jelsz), $telsz, 25000, $bnev
         ]);
         echo json_encode(true);
         return true;
