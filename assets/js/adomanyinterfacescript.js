@@ -12,10 +12,9 @@ function betoltProfil() {
         .then(request => {
 
             //console.log(request);
-            ////let szervadat = JSON.parse(request); //adatok json-ba
-            ////console.log(szervadat);
-            ////oldalEpit(szervadat);
-            console.log(request);
+            let szervadat = JSON.parse(request); //json data to let
+            console.log(szervadat);
+            oldalEpit(szervadat);
         })
 }
 

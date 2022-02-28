@@ -231,7 +231,7 @@ function AdoIntBe($conn, $userId)
     // } else {
     //     echo json_encode($eredmeny);
     // }
-    echo $userId;
+    echo json_encode(utf8_encode($eredmeny));
     //echo json_encode($eredmeny);
     //echo json_encode($_SESSION["userId"]);
 }
