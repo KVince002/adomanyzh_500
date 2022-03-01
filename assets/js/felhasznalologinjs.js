@@ -55,7 +55,7 @@ function Regisztral() {
     })
         .then(Response => Response.text())
         .then(Request => {
-            console.log(JSON.parse(Request));
+            console.log(Request);
             if (Request === true) {
                 console.log(JSON.parse(Request));
                 alert("Sikeres regisztrálás!")

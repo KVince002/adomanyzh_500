@@ -164,9 +164,9 @@ function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
             $knev, $vnev, $email, hash("sha512", $jelsz), $telsz, 25000, $bnev
         ]);
         echo json_encode(true);
-        return true;
+        //return true;
     } else {
-        echo json_encode($errors);
+        // echo json_encode($errors);
         echo json_encode(false);
     }
 
