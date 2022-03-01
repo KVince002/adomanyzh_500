@@ -41,8 +41,10 @@ function kartyaGeneral(btTomb) {
     kGomb.classList = "mdl-card__actions"
     const kGombButton = document.createElement("button");
     kGombButton.type = "button";
-    kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect";
+    kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect KartyaOld"; //*a "KartyaOld" saját class, fel lesz használva
     kGombButton.innerHTML = "Megtekintés";
+
+
 
     //json tömb hossza
     var btTombHossz = Object.keys(btTomb.id[0]).length;
