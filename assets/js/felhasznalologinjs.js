@@ -49,20 +49,22 @@ function Regisztral() {
     formData.append("email", email);
     formData.append("telsz", telsz);
     formData.append("jelsz", jelsz);
+
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
     })
         .then(Response => Response.text())
-        .then(Request => {
-            console.log(Request);
+        .then(request => {
+            console.log(request);
+
             if (Request === true) {
-                console.log(JSON.parse(Request));
+                console.log(Request);
                 alert("Sikeres regisztrálás!")
                 //! valahogy az interfaceoldara jutás
                 window.location.href = "";
             } else {
-                console.log(JSON.parse(Request));
+                //console.log(JSON.parse(Request));
                 alert("Sikertelen regisztráció!")
             }
         })

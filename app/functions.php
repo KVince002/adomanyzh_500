@@ -86,6 +86,7 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
 }
 
 //* működik!
+//adomány szerv regosztráció
 function Regisztral($nev, $leiras, $email, $jelszo, $conn)
 {
     $errors = [];
@@ -156,17 +157,15 @@ function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
 
     //*ha nincs hiba
     if (empty($errors)) {
-        $stmt = $conn->prepare("INSERT INTO felhasz 
-        (keresztnev, vezeteknev, email, jelszo, telefonszam, fabatka, becenev)
-        VALUES(?,?,?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT INTO felhasz( keresztnev, vezeteknev, email, jelszo, telefonszam, fabatka, becenev) VALUES (?,?,?,?,?,?,?)");
 
         $stmt->execute([
             $knev, $vnev, $email, hash("sha512", $jelsz), $telsz, 25000, $bnev
         ]);
         echo json_encode(true);
-        //return true;
+        return true;
     } else {
-        // echo json_encode($errors);
+        echo json_encode($errors);
         echo json_encode(false);
     }
 
