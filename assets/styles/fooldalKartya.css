@@ -1,9 +1,29 @@
-#generalo{
-  display: flex;
-  flex-direction: column;
-  flex-wrap:wrap;
-}
 .mdl-card{
   border-radius: 5px;
   margin: auto;
+}
+
+#Generalo{
+  display: flex;
+  align-content:space-around;
+  flex-direction:row;
+  flex-wrap:wrap;
+}
+
+@media screen and (max-width: 600px){
+  .mdl-card {
+  width: 100%;
+  margin: auto auto 15px;
+    border-radius: 0;
+  }
+  #Kartya{
+    padding: 5px;
+  }
+  .mdl-card__actions{
+    padding: 10px;
+  }
+  footer{
+    /*Footer eltüntető*/
+    display: none !important;
+  }
 }
