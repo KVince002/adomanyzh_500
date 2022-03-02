@@ -3,11 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("FelhasznaloRegisztral").addEventListener("click", Regisztral);
 })
 function Bejelentkez() {
-    console.log("Bejelentkez() fut");
     const email = document.getElementById("email").value;
-    console.log(email);
     const jelsz = document.getElementById("jelsz").value
-    console.log(jelsz);
 
     //formData küldés
     const formData = new FormData();
@@ -22,9 +19,10 @@ function Bejelentkez() {
         .then(Request => {
             console.log(Request);
             var bejl = JSON.parse(Request);
+            
             if (bejl === true) {
                 //!még nem áll rendelkezésre
-                window.location.href = "";
+                window.location.replace(baseUrl + "");
             }
             else {
                 alert("Sikertelen bejelentkezés");

@@ -1,5 +1,5 @@
 <?php
-
+   
     /**
     // * hash -> A hash egy egyirányú titkosítás, tehát elvilekben 
      * nem lehet visszafejteni.

@@ -9,14 +9,16 @@ require_once "common/head1.php";
 
 <body>
     <?php
-    if (!isset($_SESSION["userID"])) { //ha nincsen belépve ha nincs semmi a sessionbe
-        header('adomany_login.php'); //vissza dobja
-    }
-    require_once "common/public_nav.php";
+        require_once "common/public_nav.php";
+        JogosultsagEllenorzes(false);
     ?>
     <main class="mdl-layout__content">
         <div class="page-content">
+            <div class="mdl-grid">
+                <div class="mdl-card mdl-cell mdl-cell--8-col">
 
+                </div>
+            </div>
         </div>
     </main>
     <?php

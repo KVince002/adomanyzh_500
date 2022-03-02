@@ -15,9 +15,7 @@
 include_once "init.php";
 
 //admin regisztáció
-function AdminBe($email, $jelszo, $conn)
-{
-
+function AdminBe($email, $jelszo, $conn) {
     //*bejelentkezés stackoverflow-os változata
     $stmt = $conn->prepare("SELECT * 
         from adminok 
@@ -41,16 +39,14 @@ function AdminBe($email, $jelszo, $conn)
     //$stmt->rowCount() -> hány sort sikerült leszedni
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
-        //ő az admin
         $_SESSION["admin"] = true;
-        echo json_encode(true);
-    } else {
-        echo json_encode(false);
+        return json_encode(true);
     }
+
+    return json_encode(false);
 }
 
-function LoadPage()
-{
+function LoadPage() {
     /**
      * Két url változót készítünk
             - scene -> melyik felületen vagyunk (admin, felhasználói felület, publikus felület stb..)
@@ -74,7 +70,6 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
-        //session_start();
         $_SESSION["userID"] = $row["id"];
         echo json_encode(true);
     } else {
@@ -106,15 +101,12 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
             $nev, $leiras,
             $email, hash("sha512", $jelszo)
         ]);
-        echo json_encode(true);
-        return true;
-    } else {
-        echo json_encode($errors);
-        echo json_encode(false);
+        
+        //kilépünk a függvényből
+        return json_encode(true);
     }
 
-
-    return $errors;
+    return json_encode($errors);
 }
 //felhasználó bejelentkez
 function Bejelentkez($email, $jelsz, $conn)
@@ -132,11 +124,11 @@ function Bejelentkez($email, $jelsz, $conn)
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
-        $_SESSION["felhasznalo"] = true;
-        echo json_encode(true);
-    } else {
-        echo json_encode(false);
+        $_SESSION["admin"] = true;
+        return json_encode(true);
     }
+
+    return json_encode(false);
 }
 //felhasználó regisztáció
 function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
@@ -198,37 +190,76 @@ class kartya
         $this->kep = $ertek;
     }
 }
-function Betoltes($conn)
-{
+
+function Betoltes($conn) {
     $stmt = $conn->prepare("SELECT * from adomanytargy");
     $stmt->execute();
-    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    /**
+     * A fetch egyet szed le, a fetchAll meg az 
+     * összeset.
+     */
+    $eredmeny = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //echo json_encode($eredmeny["cim"]);
 
     //todo többör is műküdjön a tömbe írás
     //$eredmeny szűrés
+    //papíron ennek jónak kell lennie
     //$kartyaClass = new kartya($eredmeny["cim"], $eredmeny["leiras"], $eredmeny["borito"]);
 
-    echo json_encode($eredmeny);
+    return json_encode($eredmeny);
 }
 
 //Adomány interface
 //adatok betöltése
-function AdoIntBe($conn, $userId)
-{
+function AdoIntBe($conn) {
     //session_start();
     $stmt = $conn->prepare("SELECT nev, leiras, email FROM adomanyszerv WHERE id =?");
     $stmt->execute([
-        $userId
+        $_SESSION["userID"]
     ]);
 
+    //a fetch metódusnak false a visszatérési értéke, ha nem talál adatot
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+
     // if ($stmt->rowCount() > 0) {
     //     echo json_encode("Sikeres lekérdezés?");
     // } else {
     //     echo json_encode($eredmeny);
     // }
-    echo json_encode(utf8_encode($eredmeny));
-    //echo json_encode($eredmeny);
-    //echo json_encode($_SESSION["userId"]);
+    return json_encode($eredmeny);
+}
+
+function JogosultsagEllenorzes($admin) {
+    if(!isset($_SESSION["userID"])) {
+        header("location:" . BASEURL . "/fooldal.php");
+    }
+
+    if($admin && (!isset($_SESSION["admin"]) || !$_SESSION["admin"])) {
+        header("location:" . BASEURL . "/fooldal.php");
+    }
+}
+
+/**
+ * Akkor végezhet el egy műveletet, hogyha 
+ * rendelkezik a megfelelő jogosultsággal.
+ */
+function MuveletJogosultsag($admin) {
+    if(!isset($_SESSION["userID"])) {
+        return false;
+    }
+
+    if($admin && (!isset($_SESSION["admin"]) 
+    || !$_SESSION["admin"])) {
+        return false;
+    }
+
+    return true;
+}
+
+function Kijelentkezes() {
+    if(isset($_GET["logout"])) {
+        //kitöröljük a session-öket
+        session_destroy();
+    }
 }

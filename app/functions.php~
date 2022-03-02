@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
         include behív egy fájl egy másikba
         include_once behív egy fájl egy másikba, de ha véletlenül kétszer hivatkoznánk

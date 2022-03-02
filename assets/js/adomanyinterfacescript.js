@@ -1,4 +1,4 @@
-betoltProfil();
+
 function betoltProfil() {
     console.log("betolt fucntion elindult");
     //adomanygyujto szervezet adat lekérés
@@ -11,7 +11,7 @@ function betoltProfil() {
         .then(response => response.text())
         .then(request => {
 
-            //console.log(request);
+            console.log(request);
             let szervadat = JSON.parse(request); //json data to let
             console.log(szervadat);
             oldalEpit(szervadat);
@@ -25,15 +25,15 @@ function oldalEpit(adatTomb) {
     var odlalTest = document.getElementsByTagName("body");
     //grid létrehozása
     const gridKeret = document.createElement("div");
-    gridKeret.classList = "mdl-grid";
+    gridKeret.classList.add("mdl-grid");
     //első sor
     //beálltások
     const beallitasok = document.createElement("div");
-    beallitasok.classList = "mdl-card mdl-cell mdl-cell--8-col";
+    beallitasok.classList.add("mdl-card mdl-cell mdl-cell--8-col");
 
     //beállítások cím
     const beallitasokCim = document.createElement("div");
-    beallitasokCim.classList = "mdl-card__title-text";
+    beallitasokCim.classList.add("mdl-card__title-text");
     //beállítások cim szöveg
     const beallitasokCSz = document.createElement("h3");
     beallitasokCSz.innerText = "Bállítások";
@@ -141,3 +141,5 @@ function oldalEpit(adatTomb) {
     UJNEVmegadasDIV.appendChild(UjNev);
     UJNEVmegadasDIV.appendChild(nevFrissitGomb);
 }
+
+betoltProfil();
