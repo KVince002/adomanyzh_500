@@ -9,7 +9,6 @@ require_once "common/head1.php";
 
 <body>
     <?php
-    session_start();
     if (!isset($_SESSION["userID"])) { //ha nincsen belépve ha nincs semmi a sessionbe
         header('adomany_login.php'); //vissza dobja
     }

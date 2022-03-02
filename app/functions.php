@@ -1,5 +1,4 @@
 <?php
-
 /**
         include behív egy fájl egy másikba
         include_once behív egy fájl egy másikba, de ha véletlenül kétszer hivatkoznánk
@@ -75,9 +74,8 @@ function beEllenoriz($AEmail, $AJelszo, $conn)
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
-        session_start();
+        //session_start();
         $_SESSION["userID"] = $row["id"];
-        // $_SESSION["felhasz"] = true;
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -218,7 +216,7 @@ function Betoltes($conn)
 //adatok betöltése
 function AdoIntBe($conn, $userId)
 {
-    session_start();
+    //session_start();
     $stmt = $conn->prepare("SELECT nev, leiras, email FROM adomanyszerv WHERE id =?");
     $stmt->execute([
         $userId
