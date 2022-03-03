@@ -19,4 +19,8 @@ if (isset($_POST["funkcio"])) {
     if ($_POST["funkcio"] == "UjJelszo") {
         echo UjJelszo($_POST["FrissJelszo"], $conn);
     }
+    //adomány szervezet törlése
+    if ($_POST["funkcio"] == "AFioktorles") {
+        echo AFiokTorles($sonn);
+    }
 }

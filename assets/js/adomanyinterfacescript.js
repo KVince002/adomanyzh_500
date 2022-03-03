@@ -21,9 +21,10 @@ function betoltProfil() {
             CimLabel.innerHTML = szervadat.nev;
             var LeirasLabel = document.getElementById("UjLeLabel");
             LeirasLabel.innerHTML = szervadat.leiras;
-
+            var BiztosTotliE = document.getElementById("Igen");
         })
 }
+
 document.getElementById("JelszoFrissitGomb").addEventListener("click", UjJelszo);
 function UjJelszo() {
     //label megfogása
@@ -128,4 +129,29 @@ function UjMail() {
                 alert("Sikertelen frissítés");
             }
         });
+}
+
+function BiztosTorles() {
+    console.log("Biztos törlés elindult");
+    let TorolGomb = document.getElementById("Torol");
+    TorolGomb.disabled = false;
+    TorolGomb.addEventListener("click", function () {
+
+        const formData = new FormData();
+        formData.append("funkcio", "AFioktorles");
+        fetch(baseUrl + "/ajax/AdomanyInterfacePHP.php", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.text())
+            .then(request => {
+                var siker = JSON.parse(request);
+                if (siker === true) {
+                    alert("Adományszervezete törölve lett a honlapunkról! Viszlát!");
+                    window.location.href = "<?=BASEURL?>/fooldal.php?logout=true";
+                } else {
+                    alert("Adományszervezete a honlapunkról törlése sikertelen!");
+                }
+            });
+    })
 }

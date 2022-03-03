@@ -280,6 +280,18 @@ function UjJelszo($frissJelszo, $conn)
     return json_encode($eredmeny);
 }
 
+//adományszervzet törlése
+function AFiokTorles($conn)
+{
+    $stmt = $conn->prepare("DELETE FROM adomanyszerv where id = ?");
+    $stmt->execute([
+        $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
 //*kézi függvények
 
 function JogosultsagEllenorzes($admin)

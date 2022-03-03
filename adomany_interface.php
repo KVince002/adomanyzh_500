@@ -55,7 +55,7 @@ require_once "common/head1.php";
 
                         <!-- fiók törlése -->
                         <p>Biztos törölni szeretné a szervezet profilját?</p>
-                        <input type="checkbox" name="Igen" id="Igen" class="mdl-checkbox__input">
+                        <input type="checkbox" name="Igen" id="Igen" class="mdl-checkbox__input" onclick="if(this.checked){BiztosTorles()}">
                         <br>
                         <button type="button" name="Torol" id="Torol" disabled="true" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><b>Törlés</b></button>
                     </div>
