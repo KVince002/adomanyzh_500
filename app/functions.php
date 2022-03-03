@@ -1,4 +1,5 @@
 <?php
+
 /**
         include behív egy fájl egy másikba
         include_once behív egy fájl egy másikba, de ha véletlenül kétszer hivatkoznánk
@@ -15,7 +16,8 @@
 include_once "init.php";
 
 //admin regisztáció
-function AdminBe($email, $jelszo, $conn) {
+function AdminBe($email, $jelszo, $conn)
+{
     //*bejelentkezés stackoverflow-os változata
     $stmt = $conn->prepare("SELECT * 
         from adminok 
@@ -46,7 +48,8 @@ function AdminBe($email, $jelszo, $conn) {
     return json_encode(false);
 }
 
-function LoadPage() {
+function LoadPage()
+{
     /**
      * Két url változót készítünk
             - scene -> melyik felületen vagyunk (admin, felhasználói felület, publikus felület stb..)
@@ -101,7 +104,7 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
             $nev, $leiras,
             $email, hash("sha512", $jelszo)
         ]);
-        
+
         //kilépünk a függvényből
         return json_encode(true);
     }
@@ -191,7 +194,8 @@ class kartya
     }
 }
 
-function Betoltes($conn) {
+function Betoltes($conn)
+{
     $stmt = $conn->prepare("SELECT * from adomanytargy");
     $stmt->execute();
     /**
@@ -211,7 +215,8 @@ function Betoltes($conn) {
 
 //Adomány interface
 //adatok betöltése
-function AdoIntBe($conn) {
+function AdoIntBe($conn)
+{
     //session_start();
     $stmt = $conn->prepare("SELECT nev, leiras, email FROM adomanyszerv WHERE id =?");
     $stmt->execute([
@@ -230,12 +235,60 @@ function AdoIntBe($conn) {
     return json_encode($eredmeny);
 }
 
-function JogosultsagEllenorzes($admin) {
-    if(!isset($_SESSION["userID"])) {
+function UjMail($frissMail, $conn)
+{
+    $stmt = $conn->prepare("UPDATE adomanyszerv SET email = ? WHERE id = ?");
+    $stmt->execute([
+        $frissMail, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+
+    return json_encode($eredmeny);
+}
+
+function UjCim($frissCim, $conn)
+{
+    $stmt = $conn->prepare("UPDATE adomanyszerv set nev =? where id = ?");
+    $stmt->execute([
+        $frissCim, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
+function UjLe($frissLe, $conn)
+{
+    $stmt = $conn->prepare("UPDATE adomanyszerv set leiras = ? where id = ?");
+    $stmt->execute([
+        $frissLe, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
+function UjJelszo($frissJelszo, $conn)
+{
+    $stmt = $conn->prepare("UPDATE adomanyszerv set jelszo = ? where id = ?");
+    $stmt->exeute([
+        hash("sha512", $frissJelszo), $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
+//*kézi függvények
+
+function JogosultsagEllenorzes($admin)
+{
+    if (!isset($_SESSION["userID"])) {
         header("location:" . BASEURL . "/fooldal.php");
     }
 
-    if($admin && (!isset($_SESSION["admin"]) || !$_SESSION["admin"])) {
+    if ($admin && (!isset($_SESSION["admin"]) || !$_SESSION["admin"])) {
         header("location:" . BASEURL . "/fooldal.php");
     }
 }
@@ -244,21 +297,23 @@ function JogosultsagEllenorzes($admin) {
  * Akkor végezhet el egy műveletet, hogyha 
  * rendelkezik a megfelelő jogosultsággal.
  */
-function MuveletJogosultsag($admin) {
-    if(!isset($_SESSION["userID"])) {
+function MuveletJogosultsag($admin)
+{
+    if (!isset($_SESSION["userID"])) {
         return false;
     }
 
-    if($admin && (!isset($_SESSION["admin"]) 
-    || !$_SESSION["admin"])) {
+    if ($admin && (!isset($_SESSION["admin"])
+        || !$_SESSION["admin"])) {
         return false;
     }
 
     return true;
 }
 
-function Kijelentkezes() {
-    if(isset($_GET["logout"])) {
+function Kijelentkezes()
+{
+    if (isset($_GET["logout"])) {
         //kitöröljük a session-öket
         session_destroy();
     }
