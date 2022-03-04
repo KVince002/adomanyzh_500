@@ -73,7 +73,7 @@ require_once "common/head1.php";
                         </ul>
                     </div>
                     <div class="mdl-card__actions">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="TargyTorol" type="button">Törlés</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="TargyTorol" type="button" disabled>Törlés</button>
                     </div>
                 </div>
             </div>

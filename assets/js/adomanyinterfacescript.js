@@ -50,14 +50,14 @@ function betoltTargy() {
                 for (let i = 0; i < targyak.length; i++) {
                     var lista = document.getElementById("TargyMegjl");
                     var VanTargy = document.createElement("li");
-                    VanTargy.innerHTML = targyak.cim;
-                    VanTargy.id = targyak.id;
+                    VanTargy.innerHTML = targyak[i].cim;
+                    VanTargy.id = targyak[i].id;
                     //jelölő négyzet
                     const jelolo = document.createElement("input");
                     jelolo.type = "checkbox";
-                    jelolo.id = targyak.id;
+                    jelolo.id = targyak[i].id;
                     jelolo.className = "mdl-checkbox__input";
-                    lista.appendChild(NincsTargy);
+                    lista.appendChild(VanTargy);
                     lista.appendChild(jelolo);
                 }
             }
