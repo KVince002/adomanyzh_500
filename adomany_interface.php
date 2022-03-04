@@ -16,6 +16,7 @@ require_once "common/head1.php";
     <main class="mdl-layout__content">
         <div class="page-content">
             <div class="mdl-grid">
+                <!-- adományszervezet profiljának szerkeztése -->
                 <div class="mdl-card mdl-cell mdl-cell--8-col">
                     <div class="mdl-card__title">
                         <h2 class="mdl-card__title-text">Beállítások</h2>
@@ -58,6 +59,21 @@ require_once "common/head1.php";
                         <input type="checkbox" name="Igen" id="Igen" class="mdl-checkbox__input" onclick="if(this.checked){BiztosTorles()}">
                         <br>
                         <button type="button" name="Torol" id="Torol" disabled="true" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><b>Törlés</b></button>
+                    </div>
+                </div>
+                <!-- adományszervezet jelenlegi gyüjtései -->
+                <div class="mdl-card mdl-cell mdl-cell--4-col">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Jelnelegi gyűjtések</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <!-- lista -->
+                        <ul class="mdl-list" id="TargyMegjl">
+
+                        </ul>
+                    </div>
+                    <div class="mdl-card__actions">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="TargyTorol" type="button">Törlés</button>
                     </div>
                 </div>
             </div>

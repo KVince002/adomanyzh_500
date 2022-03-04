@@ -226,12 +226,6 @@ function AdoIntBe($conn)
     //a fetch metódusnak false a visszatérési értéke, ha nem talál adatot
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
-
-    // if ($stmt->rowCount() > 0) {
-    //     echo json_encode("Sikeres lekérdezés?");
-    // } else {
-    //     echo json_encode($eredmeny);
-    // }
     return json_encode($eredmeny);
 }
 
@@ -288,6 +282,18 @@ function AFiokTorles($conn)
         $_SESSION["userID"]
     ]);
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
+//adományszervezet gyűjtései
+function AdoTargyBe($conn)
+{
+    $stmt = $conn->prepare("SELECT * FROM adomanytargy where szervezo = ?");
+    $stmt->execute([
+        $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }

@@ -1,4 +1,5 @@
 betoltProfil();
+//adományszervzet adatainak betöltése
 function betoltProfil() {
     console.log("betolt fucntion elindult");
     //adomanygyujto szervezet adat lekérés
@@ -22,6 +23,44 @@ function betoltProfil() {
             var LeirasLabel = document.getElementById("UjLeLabel");
             LeirasLabel.innerHTML = szervadat.leiras;
             var BiztosTotliE = document.getElementById("Igen");
+        })
+}
+
+betoltTargy()
+//adományszervezet gyűjtése
+function betoltTargy() {
+    const formData = new FormData();
+    formData.append("funkcio", "AdoTargyBe");
+    fetch(baseUrl + "/ajax/AdomanyInterfacePHP.php", {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.text())
+        .then(request => {
+            var targyak = JSON.parse(request);
+            console.log(targyak);
+
+            //ha üres a tömb jön vissza
+            if (targyak.length === 0) {
+                var lista = document.getElementById("TargyMegjl");
+                var NincsTargy = document.createElement("li");
+                NincsTargy.innerHTML = "Nincs gyűjtés jelenleg"
+                lista.appendChild(NincsTargy);
+            } else {
+                for (let i = 0; i < targyak.length; i++) {
+                    var lista = document.getElementById("TargyMegjl");
+                    var VanTargy = document.createElement("li");
+                    VanTargy.innerHTML = targyak.cim;
+                    VanTargy.id = targyak.id;
+                    //jelölő négyzet
+                    const jelolo = document.createElement("input");
+                    jelolo.type = "checkbox";
+                    jelolo.id = targyak.id;
+                    jelolo.className = "mdl-checkbox__input";
+                    lista.appendChild(NincsTargy);
+                    lista.appendChild(jelolo);
+                }
+            }
         })
 }
 
