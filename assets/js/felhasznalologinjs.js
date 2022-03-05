@@ -4,14 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 function Bejelentkez() {
     console.log("Bejelentkez elindult");
-    const email = document.getElementById("email").value;
-    const jelsz = document.getElementById("jelsz").value
+    const email = document.getElementById("FEmail").value;
+    console.log(email);
+    const jelsz = document.getElementById("FJelszo").value
+    console.log(jelsz);
 
     //formData küldés
     const formData = new FormData();
     formData.append("funkcio", "Bejelentkez");
-    formData.append("email", email);
-    formData.append("jelsz", jelsz);
+    formData.append("FEmail", email);;
+    formData.append("FJelsz", jelsz);
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
@@ -19,13 +21,16 @@ function Bejelentkez() {
         .then(response => response.text())
         .then(request => {
             console.log(request);
-            //var bejl = JSON.parse(request);
-            if (request === true) {
-                alert("Sikertelen bejelentkezés");
+            var bejl = JSON.parse(request);
+            if (bejl === true) {
+                // console.log(request);
+                window.location.href = baseUrl + "/felhasznalo_interface.php";
+
             }
             else {
+                alert("Sikertelen bejelentkezés");
                 //!még nem áll rendelkezésre
-                window.location.replace(baseUrl + "");
+                // window.location.href = "felhasznalo_interface.php";
             }
         })
 }

@@ -121,12 +121,11 @@ function Bejelentkez($email, $jelsz, $conn)
         hash("sha512", $jelsz)
     ]);
 
-    //Eredmény
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
-        $_SESSION["admin"] = false;
+        // $_SESSION["admin"] = false;
         return json_encode(true);
     } else {
         return json_encode(false);
