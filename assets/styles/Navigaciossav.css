@@ -5,3 +5,14 @@ body{
   background-color: #37474f;
 }
 
+/*
+Interface kiegészítők
+*/
+#nev{
+  color: white;
+  padding: 0px 0px 0px 15px;
+}
+#koszonto{
+  color: white;
+  padding: 0px 0px 0px 15px;
+}

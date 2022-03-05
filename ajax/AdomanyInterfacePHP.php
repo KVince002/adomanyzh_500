@@ -27,4 +27,8 @@ if (isset($_POST["funkcio"])) {
     if ($_POST["funkcio"] == "AdoTargyBe") {
         echo AdoTargyBe($conn);
     }
+    //adományszervezet új tárgy
+    if ($_POST["funkcio"] == "TargyLetrehoz") {
+        echo TargyLetrehoz($_POST["TargyNev"], $_POST["TargyLe"], $_POST["TargyCel"], $_POST["TargyMin"], $conn);
+    }
 }

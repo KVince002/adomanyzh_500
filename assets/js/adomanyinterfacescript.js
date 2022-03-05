@@ -23,8 +23,13 @@ function betoltProfil() {
             var LeirasLabel = document.getElementById("UjLeLabel");
             LeirasLabel.innerHTML = szervadat.leiras;
             var BiztosTotliE = document.getElementById("Igen");
+            var SzervNev = document.getElementById("nev");
+            SzervNev.innerHTML = szervadat.nev;
+
+
         })
 }
+
 
 betoltTargy()
 //adományszervezet gyűjtése
@@ -46,23 +51,63 @@ function betoltTargy() {
                 var NincsTargy = document.createElement("li");
                 NincsTargy.innerHTML = "Nincs gyűjtés jelenleg"
                 lista.appendChild(NincsTargy);
+
             } else {
                 for (let i = 0; i < targyak.length; i++) {
                     var lista = document.getElementById("TargyMegjl");
                     var VanTargy = document.createElement("li");
                     VanTargy.innerHTML = targyak[i].cim;
                     VanTargy.id = targyak[i].id;
-                    //jelölő négyzet
-                    const jelolo = document.createElement("input");
-                    jelolo.type = "checkbox";
-                    jelolo.id = targyak[i].id;
-                    jelolo.className = "mdl-checkbox__input";
                     lista.appendChild(VanTargy);
-                    lista.appendChild(jelolo);
+
+                    //statisztika
+                    let seged = "";
+                    for (let i = 0; i < targyak.length; i++) {
+                        seged = "<tr>";
+                        seged = "<td>targyak[i].cim</td>";
+                        seged = "<td>targyak[i].minosszeg</td>";
+                        seged = "<td>targyak[i].cel</td>";
+                        seged = "<td>targyak[i].jelenleg</td>"
+                        seged = "</tr>"
+                    }
+                    document.getElementById("tablaTest").innerHTML = seged;
                 }
             }
         })
 }
+
+//Új tárgy feltöltése
+document.getElementById("TargyLetrehoz").addEventListener("click", TargyLetrehoz);
+function TargyLetrehoz() {
+    const LCim = document.getElementById("TargyNev").value;
+    const LLeir = document.getElementById("TargyLe").value;
+    const TCel = document.getElementById("TargyCel").value;
+    const TMin = document.getElementById("TargyMin").value;
+
+    const formData = new FormData();
+    formData.append("funkcio", "TargyLetrehoz");
+    formData.append("TargyNev", LCim);
+    formData.append("TargyLe", LLeir);
+    formData.append("TargyCel", TCel);
+    formData.append("TargyMin", TMin);
+
+    fetch(baseUrl + "/ajax/AdomanyInterfacePHP.php", {
+        method: "POST",
+        body: formData,
+    }).then(response => response.text())
+        .then(request => {
+            console.log(request);
+
+            let sikeres = JSON.parse(request);
+            console.log(sikeres);
+            if (sikeres === true) {
+                alert("Új gyűjtés létrehozva");
+            } else {
+                alert("Sikertelen létrehozás");
+            }
+        })
+}
+
 
 document.getElementById("JelszoFrissitGomb").addEventListener("click", UjJelszo);
 function UjJelszo() {

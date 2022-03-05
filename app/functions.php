@@ -297,6 +297,19 @@ function AdoTargyBe($conn)
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
+// Új tárgy létrehozás
+function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
+{
+    $jelen = 0;
+    $stmt = $conn->perpare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel,minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
+    $stmt->execute([
+        $tNev, $tLeir, $_SESSION["userID"], $tCel, $tMin, $jelen
+    ]);
+
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
 
 //*kézi függvények
 
