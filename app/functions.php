@@ -115,8 +115,7 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
 function Bejelentkez($email, $jelsz, $conn)
 //? lehet, hogy gond az ezonos nevű paraméterek
 {
-    $stmt = $conn->prepare("SELECT * from adminok where email =? and jelszo =?");
-
+    $stmt = $conn->prepare("SELECT * from felhasz where email =? and jelszo =?");
     $stmt->execute([
         $email,
         hash("sha512", $jelsz)
@@ -127,11 +126,11 @@ function Bejelentkez($email, $jelsz, $conn)
 
     if ($stmt->rowCount() == 1) {
         $_SESSION["userID"] = $row["id"];
-        $_SESSION["admin"] = true;
+        $_SESSION["admin"] = false;
         return json_encode(true);
+    } else {
+        return json_encode(false);
     }
-
-    return json_encode(false);
 }
 //felhasználó regisztáció
 function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
