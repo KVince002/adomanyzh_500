@@ -57,7 +57,7 @@ function kartyaGeneral(btTomb) {
         oldal.appendChild(kKeret);
             //keret
         kKeret.appendChild(kCim);
-        kKeret.appendChild(kKep);
+        //kKeret.appendChild(kKep);
         kKeret.appendChild(kLeiras);
         kKeret.appendChild(kGomb);
             //részletek
