@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    //document.getElementById("FBejelentez").addEventListener("click", Bejelentkez);
+    document.getElementById("FBejelentkez").addEventListener("click", Bejelentkez);
     document.getElementById("FelhasznaloRegisztral").addEventListener("click", Regisztral);
 })
 function Bejelentkez() {
+    console.log("Bejelentkez elindult");
     const email = document.getElementById("email").value;
     const jelsz = document.getElementById("jelsz").value
 
@@ -15,17 +16,16 @@ function Bejelentkez() {
         method: "POST",
         body: formData,
     })
-        .then(Response => Response.text())
-        .then(Request => {
-            console.log(Request);
-            var bejl = JSON.parse(Request);
-            
-            if (bejl === true) {
-                //!még nem áll rendelkezésre
-                window.location.replace(baseUrl + "");
+        .then(response => response.text())
+        .then(request => {
+            console.log(request);
+            //var bejl = JSON.parse(request);
+            if (request === true) {
+                alert("Sikertelen bejelentkezés");
             }
             else {
-                alert("Sikertelen bejelentkezés");
+                //!még nem áll rendelkezésre
+                window.location.replace(baseUrl + "");
             }
         })
 }

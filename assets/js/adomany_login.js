@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function beEllenoriz() {
   console.log("A 'beEllenoriz' függvény elindult");
-  // Változók
-  //* Stacnz Levenete csoportos gyakorlásából merítve
+  //változók
   let email = document.getElementById("AEmail").value;
   console.log(email);
   let jelszo = document.getElementById("AJelszo").value;

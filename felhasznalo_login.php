@@ -36,7 +36,7 @@ require_once "common/head1.php";
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" id="FBejelentkez">
-                            <a href="../FelhasznalóInterface/felhasznalointerface.html">Bejelentkezés</a>
+                            Bejelentkezés
                         </button>
                     </div>
                 </div>
