@@ -10,6 +10,7 @@ function Betoltes() {
         .then(Request => {
             console.log(Request);
             var betoltes = JSON.parse(Request);
+
             //generáló funkcio
             kartyaGeneral(betoltes);
         })
@@ -17,43 +18,57 @@ function Betoltes() {
 
 function kartyaGeneral(btTomb) {
     btTomb.forEach((kartya) => {
+
         //oldal megfogása
         const oldal = document.getElementById("Generalo");
+
         //kártya keret
         const kKeret = document.createElement("div");
         kKeret.className = "mdl-card";
+
         //Kártya cím
         const kCim = document.createElement("div");
         kCim.classList = "mdl-card__title";
         const kCimSzoveg = document.createElement("h2");
         kCimSzoveg.innerText = kartya.cim;
         kCimSzoveg.classList = "mdl-card__title-text";
+
         //kártya leiras
         const kLeiras = document.createElement("div");
         kLeiras.classList = "mdl-card__supporting-text";
         kLeiras.innerHTML = kartya.leiras;
+
         //kártya kep
         //!többet nem elérhető az adatbázsban
         // const kKep = document.createElement("div");
         // kKep.classList = "mdl-card__media";
         // const kKepImg = document.createElement("img");
         //kKepImg.src = kartya.borito;
+
         //kartya gomb
         const kGomb = document.createElement("div");
-        kGomb.classList = "mdl-card__actions"
-        const kGombHivatkozas = document.createElement("a");
+        kGomb.classList = "mdl-card__actions";
+
+        //! átmenetileg visszavinva
+        //const kGombHivatkozas = document.createElement("a");
         /**
          * Az url változó alapján tudod leszedni az adatbázisból az adatokat.
          */
-        kGombHivatkozas.href = baseUrl + `/targy_info.php?adomanytargyID=${kartya.id}`;
+        // kGombHivatkozas.href = baseUrl + `/targy_info.php?adomanytargyID=${kartya.id}`;
+
+
         const kGombButton = document.createElement("button");
         kGombButton.type = "button";
         kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect KartyaOld"; //*a "KartyaOld" saját class, fel lesz használva
         kGombButton.innerHTML = "Megtekintés";
-        kGombHivatkozas.appendChild(kGombButton);
+        kGombButton.onclick = Megtekintes(btTomb);
+
+        //!átmenetileg visszavonva
+        // kGombHivatkozas.appendChild(kGombButton);
 
         //json tömb hossza
         var btTombHossz = btTomb.length;
+        console.log(btTombHossz);
 
         oldal.appendChild(kKeret);
         //keret
@@ -64,7 +79,14 @@ function kartyaGeneral(btTomb) {
         //részletek
         kCim.appendChild(kCimSzoveg);
         //kKep.appendChild(kKepImg);
-        kGomb.appendChild(kGombHivatkozas);
+        kGomb.appendChild(kGombButton);
+
+        //! átmenetileg visszavonva
+        // kGomb.appendChild(kGombHivatkozas);
 
     });
+}
+
+function Megtekintes(btTomb) {
+    console.log("info modal");
 }
