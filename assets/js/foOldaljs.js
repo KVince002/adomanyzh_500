@@ -16,7 +16,7 @@ function Betoltes() {
 }
 
 function kartyaGeneral(btTomb) {
-    btTomb.forEach((kartya)=> {
+    btTomb.forEach((kartya) => {
         //oldal megfogása
         const oldal = document.getElementById("Generalo");
         //kártya keret
@@ -33,10 +33,11 @@ function kartyaGeneral(btTomb) {
         kLeiras.classList = "mdl-card__supporting-text";
         kLeiras.innerHTML = kartya.leiras;
         //kártya kep
-        const kKep = document.createElement("div");
-        kKep.classList = "mdl-card__media";
-        const kKepImg = document.createElement("img");
-        kKepImg.src = kartya.borito;
+        //!többet nem elérhető az adatbázsban
+        // const kKep = document.createElement("div");
+        // kKep.classList = "mdl-card__media";
+        // const kKepImg = document.createElement("img");
+        //kKepImg.src = kartya.borito;
         //kartya gomb
         const kGomb = document.createElement("div");
         kGomb.classList = "mdl-card__actions"
@@ -55,20 +56,15 @@ function kartyaGeneral(btTomb) {
         var btTombHossz = btTomb.length;
 
         oldal.appendChild(kKeret);
-            //keret
+        //keret
         kKeret.appendChild(kCim);
-        kKeret.appendChild(kKep);
+        //kKeret.appendChild(kKep);
         kKeret.appendChild(kLeiras);
         kKeret.appendChild(kGomb);
-            //részletek
+        //részletek
         kCim.appendChild(kCimSzoveg);
-        kKep.appendChild(kKepImg);
+        //kKep.appendChild(kKepImg);
         kGomb.appendChild(kGombHivatkozas);
 
-        // for (let i = 0; i < btTombHossz; i++) {
-        //     const element = btTomb[i];
-        //     //összerakás
-            
-        // }
     });
 }
