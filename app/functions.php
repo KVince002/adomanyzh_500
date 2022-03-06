@@ -309,6 +309,19 @@ function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
     return json_encode($eredmeny);
 }
 
+//felhasználó interface
+//adatok lekérése
+function adatLeker($conn)
+{
+    $stmt = $conn->prepare("SELECT * from felhasz where id =?");
+    $stmt->execute([
+        $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+
 //*kézi függvények
 
 function JogosultsagEllenorzes($admin)
