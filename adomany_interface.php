@@ -25,6 +25,8 @@ require_once "common/head1.php";
                     </div>
                     <div class="mdl-card__supporting-text">
                         <p>Egy adat átírásához csak kattintson a szövegmezőre és írja bele az új értéket, Majd kattitnson az <b>Megerősítés</b> gombra!</p>
+
+                        <!-- új email -->
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <label class="mdl-textfield__label" for="UjMail" id="UjMailLabel">[jelenlegi email]</label>
                             <input class="mdl-textfield__input" type="email" name="UjMail" id="UjMail" autofocus required autocomplete="email">
