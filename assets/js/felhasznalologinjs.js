@@ -13,7 +13,7 @@ function Bejelentkez() {
     const formData = new FormData();
     formData.append("funkcio", "Bejelentkez");
     formData.append("FEmail", email);;
-    formData.append("FJelsz", jelsz);
+    formData.append("FJelszo", jelsz);
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
@@ -37,11 +37,17 @@ function Bejelentkez() {
 function Regisztral() {
     console.log("Regisztral() fut");
     const vnev = document.getElementById("vnev").value;
+    console.log(vnev);
     const knev = document.getElementById("knev").value;
+    console.log(knev);
     const bnev = document.getElementById("bnev").value;
+    console.log(bnev);
     const email = document.getElementById("email").value;
+    console.log(email);
     const telsz = document.getElementById("telsz").value;
+    console.log(telsz);
     const jelsz = document.getElementById("jelsz").value
+    console.log(jelsz);
 
     console.log("Bejövő adat kezelése: " + vnev + " ; " + knev + " ; " + bnev + " ; " + email + " ; " + telsz + " ; " + jelsz);
     const formData = new FormData();
