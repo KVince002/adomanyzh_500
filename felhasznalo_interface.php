@@ -54,11 +54,11 @@ require_once "common/head1.php";
 
                     <!-- új becenév -->
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <label class="mdl-textfield__label" for="UjBec" id="UjBecenev">[Jelenlegi keresztnév]</label>
+                        <label class="mdl-textfield__label" for="UjBec" id="UjBecenev">[Jelenlegi becenév]</label>
                         <input class="mdl-textfield__input" type="text" name="UjBec" id="UjBec" required maxlength="249">
                         <br>
                     </div>
-                    <button type="button" id="CimBecenevGomb" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Megerősítés</button>
+                    <button type="button" id="BecFrissitGomb" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Megerősítés</button>
 
                     <!-- név változtatás -->
                     <!-- keresztnév -->

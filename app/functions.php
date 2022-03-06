@@ -321,7 +321,50 @@ function adatLeker($conn)
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
-
+//uj mail
+function UjMailFunc($UjMail, $conn)
+{
+    $stmt = $conn->prepare("UPDATE felhasz set email = ? where id =?");
+    $stmt->execute([
+        $UjMail, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+//uj nev
+function UjNevFunc($UjKer, $UjVez, $conn)
+{
+    $stmt = $conn->prepare("UPDATE felhasz set keresztnev =?, vezeteknev =? where id =?");
+    $stmt->execute([
+        $UjKer, $UjVez, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+//új becenev
+function UjBecFunc($UjBec, $conn)
+{
+    $stmt = $conn->prepare("UPDATE felhasz set becenev =? where id=?");
+    $stmt->execute([
+        $UjBec, $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+//új jelszo
+function UjJelszFunc($UjJelsz, $conn)
+{
+    $stmt = $conn->prepare("UPDATE felhasz set jelszo=? where id=?");
+    $stmt->execute([
+        hash("sha256", $UjJelsz), $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
 //*kézi függvények
 
 function JogosultsagEllenorzes($admin)
