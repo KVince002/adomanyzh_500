@@ -115,16 +115,17 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
 function Bejelentkez($email, $jelsz, $conn)
 //? lehet, hogy gond az ezonos nevű paraméterek
 {
-    $stmt = $conn->prepare("SELECT * from felhasz where email =? and jelszo =?");
+    $stmt = $conn->prepare("SELECT id from felhasz where email =? and jelszo =?");
     $stmt->execute([
         $email,
         hash("sha512", $jelsz)
     ]);
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    //return json_encode($stmt->rowCount());
+    $sor = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($stmt->rowCount() == 1) {
-        $_SESSION["userID"] = $row["id"];
+        $_SESSION["userID"] = $sor["id"];
         // $_SESSION["admin"] = false;
         return json_encode(true);
     } else {
@@ -365,6 +366,7 @@ function UjJelszFunc($UjJelsz, $conn)
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
+
 //*kézi függvények
 
 function JogosultsagEllenorzes($admin)

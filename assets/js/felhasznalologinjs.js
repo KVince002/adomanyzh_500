@@ -22,15 +22,13 @@ function Bejelentkez() {
         .then(request => {
             console.log(request);
             var bejl = JSON.parse(request);
+            console.log(bejl);
             if (bejl === true) {
                 // console.log(request);
                 window.location.href = baseUrl + "/felhasznalo_interface.php";
-
             }
             else {
                 alert("Sikertelen bejelentkezés");
-                //!még nem áll rendelkezésre
-                // window.location.href = "felhasznalo_interface.php";
             }
         })
 }
