@@ -67,12 +67,13 @@ function Regisztral() {
 
             if (Request === true) {
                 console.log(Request);
-                alert("Sikeres regisztrálás!")
+                alert("Sikeretelen regisztrálás!")
                 //! valahogy az interfaceoldara jutás
-                window.location.href = "";
+                //window.location.href = "";
             } else {
                 //console.log(JSON.parse(Request));
-                alert("Sikertelen regisztráció!")
+                alert("Sikeres regisztráció!")
+                window.location.href = baseUrl + "/felhasznalo_interface.php";
             }
         })
     console.log("Regisztral() vége");
