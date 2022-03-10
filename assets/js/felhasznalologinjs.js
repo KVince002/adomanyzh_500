@@ -6,14 +6,14 @@ function Bejelentkez() {
     console.log("Bejelentkez elindult");
     const email = document.getElementById("FEmail").value;
     console.log(email);
-    const jelsz = document.getElementById("FJelszo").value
-    console.log(jelsz);
+    const jelszo = document.getElementById("FJelszo").value
+    console.log(jelszo);
 
     //formData küldés
     const formData = new FormData();
     formData.append("funkcio", "Bejelentkez");
     formData.append("FEmail", email);;
-    formData.append("FJelszo", jelsz);
+    formData.append("FJelszo", jelszo);
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
@@ -68,8 +68,6 @@ function Regisztral() {
             if (Request === true) {
                 console.log(Request);
                 alert("Sikeretelen regisztrálás!")
-                //! valahogy az interfaceoldara jutás
-                //window.location.href = "";
             } else {
                 //console.log(JSON.parse(Request));
                 alert("Sikeres regisztráció!")

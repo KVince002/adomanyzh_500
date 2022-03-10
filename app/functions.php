@@ -319,7 +319,7 @@ function adatLeker($conn)
         $_SESSION["userID"]
     ]);
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
-    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    //$eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
 //uj mail
