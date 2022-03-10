@@ -1,6 +1,6 @@
 adatLeker();
-function adatLeker(params) {
-    console.log("adatok lekérésa");
+function adatLeker() {
+    console.log("adatok lekérése");
     const formData = new FormData();
     formData.append("funkcio", "adatLeker");
     fetch(baseUrl + "/ajax/FelhasznaloInterfacePHP.php", {
@@ -158,10 +158,10 @@ function adatLeker(params) {
     }
     function UjJelsz() {
         console.log("UjJelsz");
-        const JelszIn = document.getElementById("UjJelsz");
+        var JelszIn = document.getElementById("UjJelszo").value;
         const formData = new FormData();
-        formData.append("funkcio", "UjJeszFunc");
-        formData.append("UjJelsz", JelszIn)
+        formData.append("funkcio", "UjJeszoFunc");
+        formData.append("UjJelszo", JelszIn);
         fetch(baseUrl + "/ajax/FelhasznaloInterfacePHP.php", {
             method: "POST",
             body: formData,

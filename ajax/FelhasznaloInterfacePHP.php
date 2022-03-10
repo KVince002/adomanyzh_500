@@ -14,6 +14,6 @@ if (isset($_POST["funkcio"])) {
         echo UjBecFunc($_POST["UjBec"], $conn);
     }
     if ($_POST["funkcio"] = "UjJelszFunc") {
-        echo UjJelszFunc($_POST["UjJelsz"], $conn);
+        echo UjJelszoFunc($_POST["UjJelszo"], $conn);
     }
 }

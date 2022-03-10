@@ -167,31 +167,32 @@ function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
 
 //főoldal
 //betöltés
-class kartya
-{
-    private $fejlec;
-    private $leiras;
-    private $kep; //ugyebár ez az elérési útvonal
+//!visszavonva  
+// class kartya
+// {
+//     private $fejlec;
+//     private $leiras;
+//     private $kep; //ugyebár ez az elérési útvonal
 
-    function __construct($fejlec, $leiras, $kep)
-    {
-        $this->fejlec = $fejlec;
-        $this->leiras = $leiras;
-        $this->kep = $kep;
-    }
-    function get_fejlec($ertek)
-    {
-        $this->fejlec = $ertek;
-    }
-    function get_leiras($ertek)
-    {
-        $this->leiras = $ertek;
-    }
-    function get_kep($ertek)
-    {
-        $this->kep = $ertek;
-    }
-}
+//     function __construct($fejlec, $leiras, $kep)
+//     {
+//         $this->fejlec = $fejlec;
+//         $this->leiras = $leiras;
+//         $this->kep = $kep;
+//     }
+//     function get_fejlec($ertek)
+//     {
+//         $this->fejlec = $ertek;
+//     }
+//     function get_leiras($ertek)
+//     {
+//         $this->leiras = $ertek;
+//     }
+//     function get_kep($ertek)
+//     {
+//         $this->kep = $ertek;
+//     }
+// }
 
 function Betoltes($conn)
 {
@@ -299,10 +300,9 @@ function AdoTargyBe($conn)
 // Új tárgy létrehozás
 function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
 {
-    $jelen = 0;
-    $stmt = $conn->perpare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel,minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
+    $stmt = $conn->perpare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel, minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
     $stmt->execute([
-        $tNev, $tLeir, $_SESSION["userID"], $tCel, $tMin, $jelen
+        $tNev, $tLeir, $_SESSION["userID"], $tCel, $tMin, 0
     ]);
 
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -356,11 +356,11 @@ function UjBecFunc($UjBec, $conn)
     return json_encode($eredmeny);
 }
 //új jelszo
-function UjJelszFunc($UjJelsz, $conn)
+function UjJelszoFunc($UjJelsz, $conn)
 {
     $stmt = $conn->prepare("UPDATE felhasz set jelszo=? where id=?");
     $stmt->execute([
-        hash("sha256", $UjJelsz), $_SESSION["userID"]
+        hash("sha512", $UjJelsz), $_SESSION["userID"]
     ]);
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
