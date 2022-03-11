@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("AdomanyBejelentkez").addEventListener("click", beEllenoriz);
   document.getElementById("AdomanyRegisztral").addEventListener("click", Regisztral);
 });
-
 function beEllenoriz() {
   console.log("A 'beEllenoriz' függvény elindult");
   //változók

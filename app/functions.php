@@ -112,25 +112,25 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
     return json_encode($errors);
 }
 //felhasználó bejelentkez
-function Bejelentkez($email, $jelsz, $conn)
+function Bejelentkez($email, $jelszo, $conn)
 //? lehet, hogy gond az ezonos nevű paraméterek
 {
-    $stmt = $conn->prepare("SELECT id from felhasz where email =? and jelszo =?");
+    $stmt = $conn->prepare("SELECT * from felhasz where email =? and jelszo =?");
+    //sablon másolaás a adomány log-ból
     $stmt->execute([
         $email,
-        hash("sha512", $jelsz)
+        hash("sha512", $jelszo)
     ]);
 
-    //return json_encode($stmt->rowCount());
-    $sor = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($stmt->rowCount() == 1) {
-        $_SESSION["userID"] = $sor["id"];
-        // $_SESSION["admin"] = false;
-        return json_encode(true);
-    } else {
-        return json_encode(false);
-    }
+    echo json_encode($stmt->rowCount());
+    // if ($stmt->rowCount() == 1) {
+    //     $_SESSION["userID"] = $row["id"];
+    //     echo json_encode(true);
+    // } else {
+    //     echo json_encode(false);
+    // }
 }
 //felhasználó regisztáció
 function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
@@ -314,7 +314,7 @@ function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
 //adatok lekérése
 function adatLeker($conn)
 {
-    $stmt = $conn->prepare("SELECT * from felhasz where id =?");
+    $stmt = $conn->prepare("SELECT id, keresztnev, vezeteknev, email, telefonszam, fabatka, becenev from felhasz where id =?");
     $stmt->execute([
         $_SESSION["userID"]
     ]);

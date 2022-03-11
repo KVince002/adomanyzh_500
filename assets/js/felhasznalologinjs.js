@@ -4,15 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 function Bejelentkez() {
     console.log("Bejelentkez elindult");
-    const email = document.getElementById("FEmail").value;
+    let email = document.getElementById("FEmail").value;
     console.log(email);
-    const jelszo = document.getElementById("FJelszo").value
+    let jelszo = document.getElementById("FJelszo").value
     console.log(jelszo);
 
     //formData küldés
-    const formData = new FormData();
+    var formData = new FormData();
     formData.append("funkcio", "Bejelentkez");
-    formData.append("FEmail", email);;
+    formData.append("FEmail", email);
     formData.append("FJelszo", jelszo);
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
@@ -20,17 +20,17 @@ function Bejelentkez() {
     })
         .then(response => response.text())
         .then(request => {
-            console.log(request);
+            // console.log(request);
             var bejl = JSON.parse(request);
             console.log(bejl);
             if (bejl === true) {
                 // console.log(request);
-                window.location.href = baseUrl + "/felhasznalo_interface.php";
+                window.location.href = "felhasznalo_interface.php";
             }
             else {
                 alert("Sikertelen bejelentkezés");
             }
-        })
+        });
 }
 function Regisztral() {
     console.log("Regisztral() fut");
