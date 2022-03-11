@@ -18,6 +18,10 @@ function Betoltes() {
 
 function kartyaGeneral(btTomb) {
     btTomb.forEach(kartya);
+    //itt nézem meg a gombokat
+    var gombokTomb = [];
+
+    //katya forEach
     function kartya(item, index, tomb) {
         //oldal megfogása
         const oldal = document.getElementById("Generalo");
@@ -62,7 +66,9 @@ function kartyaGeneral(btTomb) {
         kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect KartyaOld"; //*a "KartyaOld" saját class, fel lesz használva
         kGombButton.id = tomb[index].id;
         kGombButton.innerHTML = "Megtekintés";
-        // kGombButton.onclick = Megtekintes(btTomb);
+        kGombButton.onclick = function () {
+            Reszlet(btTomb)
+        }
 
         //!átmenetileg visszavonva
         // kGombHivatkozas.appendChild(kGombButton);
@@ -84,11 +90,17 @@ function kartyaGeneral(btTomb) {
 
         //! átmenetileg visszavonva
         // kGomb.appendChild(kGombHivatkozas);
+
     }
     var btTombHossz = btTomb.length;
     console.log(btTombHossz);
 }
 
-function Megtekintes(btTomb) {
-    console.log("info modal");
+function Megtekint(params) {
+    let klikkelt = [];
+    let KartyaGomb = document.getElementsByClassName("KartyaOld");
+    for (let i = 0; i < KartyaGomb.length; i++) {
+        const alap = KartyaGomb[i];
+        Reszlet();
+    }
 }
