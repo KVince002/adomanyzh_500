@@ -17,8 +17,8 @@ function Betoltes() {
 }
 
 function kartyaGeneral(btTomb) {
-    btTomb.forEach((kartya) => {
-
+    btTomb.forEach(kartya);
+    function kartya(item, index, tomb) {
         //oldal megfogása
         const oldal = document.getElementById("Generalo");
 
@@ -30,13 +30,13 @@ function kartyaGeneral(btTomb) {
         const kCim = document.createElement("div");
         kCim.classList = "mdl-card__title";
         const kCimSzoveg = document.createElement("h2");
-        kCimSzoveg.innerText = kartya.cim;
+        kCimSzoveg.innerText = tomb[index].cim;
         kCimSzoveg.classList = "mdl-card__title-text";
 
         //kártya leiras
         const kLeiras = document.createElement("div");
         kLeiras.classList = "mdl-card__supporting-text";
-        kLeiras.innerHTML = kartya.leiras;
+        kLeiras.innerHTML = tomb[index].leiras;
 
         //kártya kep
         //!többet nem elérhető az adatbázsban
@@ -60,14 +60,15 @@ function kartyaGeneral(btTomb) {
         const kGombButton = document.createElement("button");
         kGombButton.type = "button";
         kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect KartyaOld"; //*a "KartyaOld" saját class, fel lesz használva
+        kGombButton.id = tomb[index].id;
         kGombButton.innerHTML = "Megtekintés";
-        kGombButton.onclick = Megtekintes(btTomb);
+        // kGombButton.onclick = Megtekintes(btTomb);
 
         //!átmenetileg visszavonva
         // kGombHivatkozas.appendChild(kGombButton);
 
         //json tömb hossza
-        var btTombHossz = btTomb.length;
+
         console.log(btTombHossz);
 
         oldal.appendChild(kKeret);
@@ -83,8 +84,9 @@ function kartyaGeneral(btTomb) {
 
         //! átmenetileg visszavonva
         // kGomb.appendChild(kGombHivatkozas);
-
-    });
+    }
+    var btTombHossz = btTomb.length;
+    console.log(btTombHossz);
 }
 
 function Megtekintes(btTomb) {
