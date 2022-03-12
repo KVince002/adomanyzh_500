@@ -29,7 +29,6 @@ function betoltProfil() {
         })
 }
 
-
 betoltTargy()
 //adományszervezet gyűjtése
 function betoltTargy() {
@@ -128,6 +127,7 @@ function TargyLetrehoz() {
                 alert("Probléma adódótt!");
             } else {
                 alert("Sikeres létrehozás!");
+                betoltTargy();
             }
         })
 }
@@ -204,10 +204,10 @@ function UjCim() {
             var siker = JSON.parse(request);
             if (siker === true) {
                 console.log("Sikeres frissítés");
-                alert("Sikres frissítés");
+                alert("Sikrtelen frissítés");
             } else {
-                console.log("Sikeretelen frissítés");
-                alert("Sikertelen frissítés");
+                console.log("Sikeres frissítés");
+                alert("Sikeres frissítés");
             }
         });
 }
