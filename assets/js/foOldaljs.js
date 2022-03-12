@@ -77,8 +77,7 @@ function Reszlet(azonosito, btTomb) {
     console.log("Gomb megnyomva");
     console.log(azonosito);
 
-    let result = btTomb.filter(item => {
-        return item.id == azonosito;
-    });
+    //elem azonosítás
+    const result = btTomb.filter(item => item.id == azonosito)[0];
     console.log(result);
 }
