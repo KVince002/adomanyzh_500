@@ -42,24 +42,9 @@ function kartyaGeneral(btTomb) {
         kLeiras.classList = "mdl-card__supporting-text";
         kLeiras.innerHTML = tomb[index].leiras;
 
-        //kártya kep
-        //!többet nem elérhető az adatbázsban
-        // const kKep = document.createElement("div");
-        // kKep.classList = "mdl-card__media";
-        // const kKepImg = document.createElement("img");
-        //kKepImg.src = kartya.borito;
-
         //kartya gomb
         const kGomb = document.createElement("div");
         kGomb.classList = "mdl-card__actions";
-
-        //! átmenetileg visszavinva
-        //const kGombHivatkozas = document.createElement("a");
-        /**
-         * Az url változó alapján tudod leszedni az adatbázisból az adatokat.
-         */
-        // kGombHivatkozas.href = baseUrl + `/targy_info.php?adomanytargyID=${kartya.id}`;
-
 
         const kGombButton = document.createElement("button");
         kGombButton.type = "button";
@@ -69,11 +54,6 @@ function kartyaGeneral(btTomb) {
         kGombButton.onclick = function () {
             Reszlet(btTomb)
         }
-
-        //!átmenetileg visszavonva
-        // kGombHivatkozas.appendChild(kGombButton);
-
-        //json tömb hossza
 
         console.log(btTombHossz);
 
@@ -87,9 +67,6 @@ function kartyaGeneral(btTomb) {
         kCim.appendChild(kCimSzoveg);
         //kKep.appendChild(kKepImg);
         kGomb.appendChild(kGombButton);
-
-        //! átmenetileg visszavonva
-        // kGomb.appendChild(kGombHivatkozas);
 
     }
     var btTombHossz = btTomb.length;
