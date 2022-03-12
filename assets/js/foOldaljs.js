@@ -96,11 +96,6 @@ function kartyaGeneral(btTomb) {
     console.log(btTombHossz);
 }
 
-function Megtekint(params) {
-    let klikkelt = [];
-    let KartyaGomb = document.getElementsByClassName("KartyaOld");
-    for (let i = 0; i < KartyaGomb.length; i++) {
-        const alap = KartyaGomb[i];
-        Reszlet();
-    }
+function Reszlet(btTomb) {
+    console.log(btTomb.length);
 }

@@ -300,7 +300,7 @@ function AdoTargyBe($conn)
 // Új tárgy létrehozás
 function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
 {
-    $stmt = $conn->perpare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel, minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel, minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
     $stmt->execute([
         $tNev, $tLeir, $_SESSION["userID"], $tCel, $tMin, 0
     ]);
