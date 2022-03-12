@@ -52,7 +52,7 @@ function kartyaGeneral(btTomb) {
         kGombButton.id = tomb[index].id;
         kGombButton.innerHTML = "Megtekintés";
         kGombButton.onclick = function () {
-            Reszlet(btTomb)
+            Reszlet(btTomb[index].id, btTomb);
         }
 
         console.log(btTombHossz);
@@ -73,6 +73,12 @@ function kartyaGeneral(btTomb) {
     console.log(btTombHossz);
 }
 
-function Reszlet(btTomb) {
-    console.log(btTomb.length);
+function Reszlet(azonosito, btTomb) {
+    console.log("Gomb megnyomva");
+    console.log(azonosito);
+
+    let result = btTomb.filter(item => {
+        return item.id == azonosito;
+    });
+    console.log(result);
 }
