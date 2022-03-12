@@ -46,7 +46,7 @@ function betoltTargy() {
 
             //ha üres a tömb jön vissza
             if (targyak.length === 0) {
-                const nincs = document.createElement("li");
+                var nincs = document.createElement("li");
                 nincs.innerHTML = "Még nem indított semmilyen gyűjtést";
                 document.getElementById("targyMegjl").appendChild(nincs);
             } else {
@@ -62,7 +62,7 @@ function betoltTargy() {
             var seged = "";
             for (let i = 0; i < targyak.length; i++) {
                 seged += "<tr>";
-                seged += "<td><input type='checkbox' class='cbelement' data-id='" + targyak[i].id + "'>+</td>";
+                seged += "<td><input type='checkbox' class='TargyElem' data-id='" + targyak[i].id + "'>+</td>";
                 seged += "<td>" + targyak[i].cim + "</td>";
                 seged += "<td>" + targyak[i].minosszeg + "</td>";
                 seged += "<td>" + targyak[i].cel + "</td>";
@@ -70,6 +70,33 @@ function betoltTargy() {
                 seged += "</tr>";
             }
             document.getElementById("tablaTest").innerHTML = seged;
+
+
+        })
+}
+
+document.getElementById("TargyTorlesGomb").addEventListener("click", targyTorol);
+function targyTorol() {
+    let KijlTargyElemek = [];
+    let TargyElemek = document.getElementsByClassName("TargyElem");
+    for (let i = 0; i < TargyElemek.length; i++) {
+        if (TargyElemek[i].checked) {
+            KijlTargyElemek.push(TargyElemek[i].dataset.id);
+        }
+    }
+    console.log(JSON.stringify(KijlTargyElemek));
+    const formData = new FormData();
+    formData.append("funkcio", "TargyTorol");
+    formData.append("ids", JSON.stringify(KijlTargyElemek));
+    fetch(baseUrl + "/ajax/AdomanyInterfacePHP.php", {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.text())
+        .then(request => {
+            console.log(request);
+            alert("Kijelölt elemek törölve!");
+            betoltTargy();
         })
 }
 
@@ -98,9 +125,9 @@ function TargyLetrehoz() {
             let sikeres = JSON.parse(request);
             console.log(sikeres);
             if (sikeres === true) {
-                alert("Új gyűjtés létrehozva");
+                alert("Probléma adódótt!");
             } else {
-                alert("Sikertelen létrehozás");
+                alert("Sikeres létrehozás!");
             }
         })
 }

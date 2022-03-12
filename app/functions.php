@@ -309,6 +309,19 @@ function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
     $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
+//tárgy törlése
+function TargyTorol($tomb, $conn)
+{
+    for ($i = 0; $i < count($tomb); $i++) {
+        $stmt = $conn->prepare("DELETE FROM adomanytargy WHERE id=?");
+        $stmt->execute([
+            $tomb[$i]
+        ]);
+        $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+        $eredmeny = $eredmeny !== false ? $eredmeny : [];
+        return json_encode($eredmeny);
+    }
+}
 
 //felhasználó interface
 //adatok lekérése

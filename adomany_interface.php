@@ -131,6 +131,9 @@ require_once "common/head1.php";
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="mdl-card__actions">
+                                <button type="button" id="TargyTorlesGomb" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"">Törlés</button>
+                    </div>
                     </div>
                 </div>
             </div>

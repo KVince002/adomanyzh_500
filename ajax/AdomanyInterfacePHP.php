@@ -31,4 +31,8 @@ if (isset($_POST["funkcio"])) {
     if ($_POST["funkcio"] == "TargyLetrehoz") {
         echo TargyLetrehoz($_POST["TargyNev"], $_POST["TargyLe"], $_POST["TargyCel"], $_POST["TargyMin"], $conn);
     }
+    //adomány szervezet tárgy törlés
+    if ($_POST["funkcio"] == "TargyTorol") {
+        echo TargyTorol(json_decode($_POST["ids"]), $conn);
+    }
 }
