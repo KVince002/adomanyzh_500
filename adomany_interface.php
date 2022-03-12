@@ -120,6 +120,7 @@ require_once "common/head1.php";
                             <div class="mdl-card__supporting-text" id="eredmeny">
                                 <table id="eredmenyTabla">
                                     <thead>
+                                        <th>Kijelölés</th>
                                         <th>Cím</th>
                                         <th>Minimum összeg</th>
                                         <th>Cél</th>

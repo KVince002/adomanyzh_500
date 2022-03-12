@@ -26,7 +26,6 @@ function betoltProfil() {
             var SzervNev = document.getElementById("nev");
             SzervNev.innerHTML = szervadat.nev;
 
-
         })
 }
 
@@ -47,11 +46,9 @@ function betoltTargy() {
 
             //ha üres a tömb jön vissza
             if (targyak.length === 0) {
-                var lista = document.getElementById("TargyMegjl");
-                var NincsTargy = document.createElement("li");
-                NincsTargy.innerHTML = "Nincs gyűjtés jelenleg"
-                lista.appendChild(NincsTargy);
-
+                const nincs = document.createElement("li");
+                nincs.innerHTML = "Még nem indított semmilyen gyűjtést";
+                document.getElementById("targyMegjl").appendChild(nincs);
             } else {
                 for (let i = 0; i < targyak.length; i++) {
                     var lista = document.getElementById("TargyMegjl");
@@ -59,20 +56,20 @@ function betoltTargy() {
                     VanTargy.innerHTML = targyak[i].cim;
                     VanTargy.id = targyak[i].id;
                     lista.appendChild(VanTargy);
-
-                    //statisztika
-                    let seged = "";
-                    for (let i = 0; i < targyak.length; i++) {
-                        seged = "<tr>";
-                        seged = "<td>targyak[i].cim</td>";
-                        seged = "<td>targyak[i].minosszeg</td>";
-                        seged = "<td>targyak[i].cel</td>";
-                        seged = "<td>targyak[i].jelenleg</td>"
-                        seged = "</tr>"
-                    }
-                    document.getElementById("tablaTest").innerHTML = seged;
                 }
             }
+            //statisztika
+            var seged = "";
+            for (let i = 0; i < targyak.length; i++) {
+                seged += "<tr>";
+                seged += "<td><input type='checkbox' class='cbelement' data-id='" + targyak[i].id + "'>+</td>";
+                seged += "<td>" + targyak[i].cim + "</td>";
+                seged += "<td>" + targyak[i].minosszeg + "</td>";
+                seged += "<td>" + targyak[i].cel + "</td>";
+                seged += "<td>" + targyak[i].jelenleg + "</td>";
+                seged += "</tr>";
+            }
+            document.getElementById("tablaTest").innerHTML = seged;
         })
 }
 
