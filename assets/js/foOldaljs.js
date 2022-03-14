@@ -77,49 +77,48 @@ function Reszlet(azonosito, btTomb) {
     console.log("Gomb megnyomva");
     console.log(azonosito);
 
+
     //elem azonosítás
     const result = btTomb.filter(item => item.id == azonosito)[0];
     console.log(result);
 
-    //modal generálás
-    //modal keret
-    const ModalKeret = document.createElement("dialog");
-    ModalKeret.classList = "mdl-dialog";
-    ModalKeret.id = "ModalKeret";
+    console.log("dialog generálás");
 
-    //modal cim
-    const ModalCim = document.createElement("div");
-    ModalCim.classList = "mdl-dialog__title";
-    ModalCim.id = "ModalCim";
-    ModalCim.innerHTML = result.cim;
+    //mdl dialog generálás 
+    var DialogAlap = document.createElement("dialog");
+    DialogAlap.classList = "mdl-dialog";
+    DialogAlap.id = result;
 
-    //modal tartalom
-    const ModalTartalom = document.createElement("div");
-    ModalTartalom.classList = "modal-dialog__content";
-    ModalTartalom.id = "ModalTartalom";
-    //modal tartalom részlet
-    var ModalTartalomReszlet = document.createElement("p");
-    ModalTartalomReszlet.innerHTML = "<b>Név: </b><br></br><p>" + result.cim + "</p><br><b>Leírás: </b><br><p>" + result.leiras + "</p><br>";
+    //mdl dialog bezárás
+    var DialogBezar = document.createElement("button");
+    DialogBezar.classList = "mdl-button close";
+    DialogBezar.innerHTML = "Bezárás";
 
-    //modal gombok
-    var ModalGombok = document.createElement("div");
-    ModalGombok.classList = "mdl-dialog__actions mdl-dialog__actions--full-width";
-    ModalGombok.id = "ModalGombok";
-    //modal gombok bezár
-    var ModalGombokBezar = document.createElement("button");
-    ModalGombokBezar.id = "ModalGombokBezar";
-    ModalGombokBezar.innerHTML = "Bezárás";
+    //mdl dialog cím
+    var DialogCim = document.createElement("h4");
+    DialogCim.classList = "mdl-dialog__title";
+    DialogCim.innerHTML = result.cim;
 
-    //modal megjelenítése
-    var dialog = document.querySelector("dialog");
-    var showModalButton = document.getElementById(azonosito);
-    if (!dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    showModalButton.addEventListener('click', function () {
-        dialog.showModal();
-    });
-    dialog.querySelector('#ModalGombokBezar').addEventListener('click', function () {
+    //mdl dialog tartalom
+    var DialogTartalom = document.createElement("div");
+    DialogTartalom.classList = "mdl-dialog__content";
+
+    // mdl dialog tatalom leírás
+    var DialogTartalomLeiras = document.createElement("p");
+    DialogTartalomLeiras.innerHTML = result.leiras;
+
+    //generáló megtalálása
+    var generalo = document.getElementById("Generalo");
+    //*összerakás
+    generalo.appendChild(DialogAlap);
+    DialogAlap.appendChild(DialogCim);
+    DialogAlap.appendChild(DialogTartalom);
+    DialogTartalom.appendChild(DialogTartalomLeiras);
+    DialogAlap.appendChild(DialogBezar);
+
+    //!
+    var dialog = document.querySelector('dialog');
+    dialog.querySelector('.close').addEventListener('click', function () {
         dialog.close();
     });
 }
