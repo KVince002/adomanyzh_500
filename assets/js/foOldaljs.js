@@ -11,9 +11,42 @@ function Betoltes() {
             console.log(Request);
             var betoltes = JSON.parse(Request);
 
+            //dialg generálás
+            dialogGeneral(betoltes);
             //generáló funkcio
             kartyaGeneral(betoltes);
         })
+}
+
+function dialogGeneral(btTomb) {
+    btTomb.forEach(dialog);
+    //* forEach ami építi az elemeket
+    function dialog(item, index, tomb) {
+        //oldal megfogása
+        const oldal = document.getElementById("Generalo");
+
+        //dialog keret
+        var dialogKeret = document.createElement("dialog");
+        //*egyedi id
+        dialogKeret.id = tomb[index].id + "dia";
+        dialogKeret.classList = "mdl-dialog";
+
+        //dialog cím
+        var dialogCim = document.createElement("h4");
+        dialogCim.innerHTML = tomb[index].cim;
+
+        //dialog test ~ a részletes tartalmak ide kerülnek
+        var dialogTest = document.createElement("p");
+        dialogTest.classList = "mdl-dialog__content";
+
+        //összeépítés
+        oldal.appendChild(dialogKeret);
+        dialogKeret.appendChild(dialogCim);
+        dialogKeret.appendChild(dialogTest);
+
+        //id ellenőrzés
+        console.log(dialogKeret);
+    }
 }
 
 function kartyaGeneral(btTomb) {
@@ -53,6 +86,10 @@ function kartyaGeneral(btTomb) {
         kGombButton.innerHTML = "Megtekintés";
         kGombButton.onclick = function () {
             Reszlet(btTomb[index].id, btTomb);
+            //*itt fogja majd megjeleníteni
+            console.log(btTomb[index.id] + "dia");
+            console.log(btTomb[index].id + "dia");
+            document.getElementById(btTomb[index].id + "dia").style.display = "block";
         }
 
         console.log(btTombHossz);
@@ -77,48 +114,9 @@ function Reszlet(azonosito, btTomb) {
     console.log("Gomb megnyomva");
     console.log(azonosito);
 
-
     //elem azonosítás
     const result = btTomb.filter(item => item.id == azonosito)[0];
     console.log(result);
 
     console.log("dialog generálás");
-
-    //mdl dialog generálás 
-    var DialogAlap = document.createElement("dialog");
-    DialogAlap.classList = "mdl-dialog";
-    DialogAlap.id = result;
-
-    //mdl dialog bezárás
-    var DialogBezar = document.createElement("button");
-    DialogBezar.classList = "mdl-button close";
-    DialogBezar.innerHTML = "Bezárás";
-
-    //mdl dialog cím
-    var DialogCim = document.createElement("h4");
-    DialogCim.classList = "mdl-dialog__title";
-    DialogCim.innerHTML = result.cim;
-
-    //mdl dialog tartalom
-    var DialogTartalom = document.createElement("div");
-    DialogTartalom.classList = "mdl-dialog__content";
-
-    // mdl dialog tatalom leírás
-    var DialogTartalomLeiras = document.createElement("p");
-    DialogTartalomLeiras.innerHTML = result.leiras;
-
-    //generáló megtalálása
-    var generalo = document.getElementById("Generalo");
-    //*összerakás
-    generalo.appendChild(DialogAlap);
-    DialogAlap.appendChild(DialogCim);
-    DialogAlap.appendChild(DialogTartalom);
-    DialogTartalom.appendChild(DialogTartalomLeiras);
-    DialogAlap.appendChild(DialogBezar);
-
-    //!
-    var dialog = document.querySelector('dialog');
-    dialog.querySelector('.close').addEventListener('click', function () {
-        dialog.close();
-    });
 }
