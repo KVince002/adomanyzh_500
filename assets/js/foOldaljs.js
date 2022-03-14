@@ -87,9 +87,15 @@ function kartyaGeneral(btTomb) {
         kGombButton.onclick = function () {
             Reszlet(btTomb[index].id, btTomb);
             //*itt fogja majd megjeleníteni
-            console.log(btTomb[index.id] + "dia");
-            console.log(btTomb[index].id + "dia");
-            document.getElementById(btTomb[index].id + "dia").style.display = "block";
+            // // console.log(btTomb[index].id + "dia");
+            // // document.getElementById(btTomb[index].id + "dia").style.display = "block";
+            //*mdl ver
+            var dialog = document.getElementById(btTomb[index].id + "dia");
+            console.log(dialog);
+            if (!dialog.showModal) {
+                dialogPolyfill.registerDialog(dialog);
+            }
+            dialog.showModal();
         }
 
         console.log(btTombHossz);
