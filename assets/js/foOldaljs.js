@@ -39,10 +39,21 @@ function dialogGeneral(btTomb) {
         var dialogTest = document.createElement("p");
         dialogTest.classList = "mdl-dialog__content";
 
+        //dialog műveletek
+        var dialogMuvelet = document.createElement("div");
+        dialogMuvelet.classList = "mdl-dialog__actions";
+
+        //dialog bezár
+        var dialogBezar = document.createElement("button");
+        dialogBezar.innerHTML = "Bezárás";
+        dialogBezar.id = tomb[index].id + "bezar";
+
         //összeépítés
         oldal.appendChild(dialogKeret);
         dialogKeret.appendChild(dialogCim);
         dialogKeret.appendChild(dialogTest);
+        dialogKeret.appendChild(dialogMuvelet);
+        dialogMuvelet.appendChild(dialogBezar);
 
         //id ellenőrzés
         console.log(dialogKeret);
@@ -86,16 +97,22 @@ function kartyaGeneral(btTomb) {
         kGombButton.innerHTML = "Megtekintés";
         kGombButton.onclick = function () {
             Reszlet(btTomb[index].id, btTomb);
-            //*itt fogja majd megjeleníteni
-            // // console.log(btTomb[index].id + "dia");
-            // // document.getElementById(btTomb[index].id + "dia").style.display = "block";
+
             //*mdl ver
             var dialog = document.getElementById(btTomb[index].id + "dia");
-            console.log(dialog);
+            //console.log(dialog);
             if (!dialog.showModal) {
                 dialogPolyfill.registerDialog(dialog);
             }
             dialog.showModal();
+
+            //*dialog megnyitása
+            dialog.display = "block";
+
+            //*dialog bezárása
+            var dialogButtonBezar = document.getElementById(btTomb[index].id + "bezar").addEventListener("click", function () {
+                dialog.close();
+            })
         }
 
         console.log(btTombHossz);
