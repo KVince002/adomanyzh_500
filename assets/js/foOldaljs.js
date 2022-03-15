@@ -38,6 +38,7 @@ function dialogGeneral(btTomb) {
         //dialog test ~ a részletes tartalmak ide kerülnek
         var dialogTest = document.createElement("p");
         dialogTest.classList = "mdl-dialog__content";
+        dialogTest.innerHTML = "<b>Leírás</b><br><p>" + tomb[index].leiras + "</p><br><p><b>A gyűjtés állása:</b></p><p><b>Cél: </b>" + tomb[index].cel + "</p><p><b>Jelenleg: </b>" + tomb[index].jelenleg + "</p><br><input class='mdl-slider mdl-js-slider' type='range' min='0' value='" + tomb[index].jelenleg + " max='" + tomb[index].cel + "' readonly='true'>";
 
         //dialog műveletek
         var dialogMuvelet = document.createElement("div");
@@ -47,6 +48,7 @@ function dialogGeneral(btTomb) {
         var dialogBezar = document.createElement("button");
         dialogBezar.innerHTML = "Bezárás";
         dialogBezar.id = tomb[index].id + "bezar";
+        dialogBezar.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
 
         //összeépítés
         oldal.appendChild(dialogKeret);
@@ -57,6 +59,13 @@ function dialogGeneral(btTomb) {
 
         //id ellenőrzés
         console.log(dialogKeret);
+
+        //*álláspont fissítése
+        // // let jelenlegiErt = tomb[index].jelenleg;
+        // // let celErt = tomb[index].cel;
+        // // document.getElementById("allas").addEventListener("mdl-componentupgraded", function () {
+        // //     this.MaterialProgress.setProgress(jelenlegiErt);
+        // // });
     }
 }
 
