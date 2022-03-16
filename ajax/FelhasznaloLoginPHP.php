@@ -1,10 +1,25 @@
 <?php
-require_once "../app/functions.php";
+require_once "../app/osztalyok.php";
+
 //gyors javítás
 if (isset($_POST["funkcio"])) {
     if ($_POST["funkcio"] == "Bejelentkez") {
-        echo Bejelentkez($_POST["FEmail"], $_POST["FJelszo"], $conn);
+        $fk = new FelhasznaloKezelo();
+
+        echo $fk->Bejelentkez(
+            $_POST["email"],
+            $_POST["jelszo"]
+        );
     } elseif ($_POST["funkcio"] == "FRegisztral") {
-        echo  FRegisztral($_POST["vnev"], $_POST["knev"], $_POST["bnev"], $_POST["email"], $_POST["telsz"], $_POST["jelsz"], $conn);
+        $fk = new FelhasznaloKezelo(
+            $_POST["knev"],
+            $_POST["vnev"],
+            $_POST["bnev"],
+            $_POST["email"],
+            $_POST["telsz"],
+            $_POST["jelsz"]
+        );
+
+        echo $fk->FRegisztral();
     }
 }

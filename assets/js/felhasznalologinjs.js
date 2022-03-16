@@ -12,8 +12,9 @@ function Bejelentkez() {
     //formData küldés
     var formData = new FormData();
     formData.append("funkcio", "Bejelentkez");
-    formData.append("FEmail", email);
-    formData.append("FJelszo", jelszo);
+    formData.append("email", email);
+    formData.append("jelszo", jelszo);
+
     fetch(baseUrl + "/ajax/FelhasznaloLoginPHP.php", {
         method: "POST",
         body: formData,
@@ -32,6 +33,7 @@ function Bejelentkez() {
             }
         });
 }
+
 function Regisztral() {
     console.log("Regisztral() fut");
     const vnev = document.getElementById("vnev").value;
@@ -61,18 +63,13 @@ function Regisztral() {
         method: "POST",
         body: formData,
     })
-        .then(Response => Response.text())
-        .then(request => {
-            console.log(request);
-
-            if (Request === true) {
-                console.log(Request);
-                alert("Sikeretelen regisztrálás!")
-            } else {
-                //console.log(JSON.parse(Request));
-                alert("Sikeres regisztráció!")
-                window.location.href = baseUrl + "/felhasznalo_interface.php";
-            }
-        })
-    console.log("Regisztral() vége");
+    .then(Response => Response.text())
+    .then(request => {
+        if (request === true) {
+            alert("Sikeres regisztrálás!");
+            window.location.href = baseUrl + "/felhasznalo_interface.php";
+        } else {
+            alert("Sikeres regisztráció!")
+        }
+    });
 }

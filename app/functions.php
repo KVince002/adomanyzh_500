@@ -112,10 +112,9 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
     return json_encode($errors);
 }
 //felhasználó bejelentkez
-function Bejelentkez($email, $jelszo, $conn)
-//? lehet, hogy gond az ezonos nevű paraméterek
-{
-    $stmt = $conn->prepare("SELECT * from felhasz where email =? and jelszo =?");
+function Bejelentkez($email, $jelszo, $conn) {
+    $stmt = $conn->prepare("SELECT * FROM 
+    felhasz WHERE email = ? AND jelszo = ?");
     //sablon másolaás a adomány log-ból
     $stmt->execute([
         $email,
@@ -124,14 +123,14 @@ function Bejelentkez($email, $jelszo, $conn)
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo json_encode($stmt->rowCount());
-    // if ($stmt->rowCount() == 1) {
-    //     $_SESSION["userID"] = $row["id"];
-    //     echo json_encode(true);
-    // } else {
-    //     echo json_encode(false);
-    // }
+    if ($stmt->rowCount() == 1) {
+        $_SESSION["userID"] = $row["id"];
+        return json_encode(true);
+    }
+
+    return json_encode(false);
 }
+
 //felhasználó regisztáció
 function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
 {
