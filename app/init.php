@@ -10,4 +10,4 @@ define("BASEDIR", $_SERVER["DOCUMENT_ROOT"] . "/adomanyzh_OOP");
  * HTTP_HOST: vagy localhost, vagy mondjuk google.com, vagy a szerver ip címe
  */
 define("PROTOCOL", isset($_SERVER["HTTPS"]) ? "https://" : "http://");
-define("BASEURL", PROTOCOL . $_SERVER["HTTP_HOST"] . "/adomany_OOP"); //megváltoztattam
+define("BASEURL", PROTOCOL . $_SERVER["HTTP_HOST"] . "/adomanyzh_OOP"); //megváltoztattam
