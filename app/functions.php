@@ -112,7 +112,8 @@ function Regisztral($nev, $leiras, $email, $jelszo, $conn)
     return json_encode($errors);
 }
 //felhasználó bejelentkez
-function Bejelentkez($email, $jelszo, $conn) {
+function Bejelentkez($email, $jelszo, $conn)
+{
     $stmt = $conn->prepare("SELECT * FROM 
     felhasz WHERE email = ? AND jelszo = ?");
     //sablon másolaás a adomány log-ból
@@ -326,11 +327,11 @@ function TargyTorol($tomb, $conn)
 //adatok lekérése
 function adatLeker($conn)
 {
-    $stmt = $conn->prepare("SELECT id, keresztnev, vezeteknev, email, telefonszam, fabatka, becenev from felhasz where id =?");
+    $stmt = $conn->prepare("SELECT felhasznalok.FelhNev, felhasznalok.Email, felh_profil.Keresztnev, felh_profil.Vezeteknev, felh_profil.Tel, felh_profil.Fabatka from felhasznalok inner join felh_profil on (felhasznalok.FelhID = felh_profil.FelhID) WHERE felhasznalok.FelhID=1");
     $stmt->execute([
         $_SESSION["userID"]
     ]);
-    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //$eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
