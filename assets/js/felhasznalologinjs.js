@@ -63,13 +63,13 @@ function Regisztral() {
         method: "POST",
         body: formData,
     })
-    .then(Response => Response.text())
-    .then(request => {
-        if (request === true) {
-            alert("Sikeres regisztrálás!");
-            window.location.href = baseUrl + "/felhasznalo_interface.php";
-        } else {
-            alert("Sikeres regisztráció!")
-        }
-    });
+        .then(Response => Response.text())
+        .then(request => {
+            if (request === true) {
+                alert("Sikeres regisztrálás!");
+                window.location.href = "felhasznalo_interface.php";
+            } else {
+                alert("Sikeres regisztráció!")
+            }
+        });
 }
