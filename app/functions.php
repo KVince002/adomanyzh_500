@@ -167,48 +167,12 @@ function FRegisztral($vnev, $knev, $bnev, $email, $telsz, $jelsz, $conn)
 
 //főoldal
 //betöltés
-//!visszavonva  
-// class kartya
-// {
-//     private $fejlec;
-//     private $leiras;
-//     private $kep; //ugyebár ez az elérési útvonal
-
-//     function __construct($fejlec, $leiras, $kep)
-//     {
-//         $this->fejlec = $fejlec;
-//         $this->leiras = $leiras;
-//         $this->kep = $kep;
-//     }
-//     function get_fejlec($ertek)
-//     {
-//         $this->fejlec = $ertek;
-//     }
-//     function get_leiras($ertek)
-//     {
-//         $this->leiras = $ertek;
-//     }
-//     function get_kep($ertek)
-//     {
-//         $this->kep = $ertek;
-//     }
-// }
-
 function Betoltes($conn)
 {
-    $stmt = $conn->prepare("SELECT * from adomanytargy");
+    $stmt = $conn->prepare("SELECT * from adomanycelok");
     $stmt->execute();
-    /**
-     * A fetch egyet szed le, a fetchAll meg az 
-     * összeset.
-     */
     $eredmeny = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //echo json_encode($eredmeny["cim"]);
-
-    //todo többör is műküdjön a tömbe írás
-    //$eredmeny szűrés
-    //papíron ennek jónak kell lennie
-    //$kartyaClass = new kartya($eredmeny["cim"], $eredmeny["leiras"], $eredmeny["borito"]);
 
     return json_encode($eredmeny);
 }
