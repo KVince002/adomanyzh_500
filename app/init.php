@@ -1,6 +1,6 @@
 <?php session_start();
 
-define("BASEDIR", $_SERVER["DOCUMENT_ROOT"] . "/adomany_uj");
+define("BASEDIR", $_SERVER["DOCUMENT_ROOT"] . "/adomanyzh_OOP");
 //http vagy https
 /**
  * Ha a kérdőjel előtti feltétel teljesül, akkor a kérdőjel utáni
@@ -10,4 +10,4 @@ define("BASEDIR", $_SERVER["DOCUMENT_ROOT"] . "/adomany_uj");
  * HTTP_HOST: vagy localhost, vagy mondjuk google.com, vagy a szerver ip címe
  */
 define("PROTOCOL", isset($_SERVER["HTTPS"]) ? "https://" : "http://");
-define("BASEURL", PROTOCOL . $_SERVER["HTTP_HOST"] . "/adomany_uj"); //megváltoztattam
+define("BASEURL", PROTOCOL . $_SERVER["HTTP_HOST"] . "/adomany_OOP"); //megváltoztattam

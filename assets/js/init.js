@@ -1,5 +1,5 @@
 //*itt van a baseurl 
-const baseUrl = location.protocol + "//" + location.host + "/adomany_uj";
+const baseUrl = location.protocol + "//" + location.host + "/adomanyzh_OOP";
 
 //url változók megkapása
 function getUrlVariable(varName) {
