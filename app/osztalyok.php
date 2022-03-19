@@ -115,7 +115,7 @@ class FelhasznaloKezelo
                 2,
                 $nev,
                 $email,
-                $jelszo
+                hash("sha512", $jelszo)
             ]);
 
             $stmt2->execute([
