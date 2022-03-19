@@ -11,7 +11,7 @@ function betoltProfil() {
     })
         .then(response => response.text())
         .then(request => {
-            //console.log(request);
+            console.log(request);
             var szervadat = JSON.parse(request); //json data to let
             console.log(szervadat);
 
@@ -40,6 +40,7 @@ function betoltTargy() {
     })
         .then(response => response.text())
         .then(request => {
+            console.log(request);
             var targyak = JSON.parse(request);
             console.log(targyak);
 
