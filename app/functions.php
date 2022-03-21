@@ -182,8 +182,9 @@ function Betoltes($conn)
 function AdoIntBe($conn)
 {
     //session_start();
-    $stmt = $conn->prepare("SELECT nev, leiras, email FROM adomanyszerv WHERE id =?");
+    $stmt = $conn->prepare("SELECT felhasznalok.FelhID, felhasznalok.FelhNev, felhasznalok.Email, felhasznalok.Jelszo, adomanyszerv_profil.Elnevezes, adomanyszerv_profil.Leiras from felhasznalok inner join adomanyszerv_profil on (felhasznalok.FelhID=adomanyszerv_profil.FelhID) WHERE felhasznalok.FelhID =? and adomanyszerv_profil.FelhID = ?");
     $stmt->execute([
+        $_SESSION["userID"],
         $_SESSION["userID"]
     ]);
 
@@ -195,7 +196,7 @@ function AdoIntBe($conn)
 
 function UjMail($frissMail, $conn)
 {
-    $stmt = $conn->prepare("UPDATE adomanyszerv SET email = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE felhasznalok SET Email = ? WHERE FelhID = ?");
     $stmt->execute([
         $frissMail, $_SESSION["userID"]
     ]);
@@ -207,7 +208,7 @@ function UjMail($frissMail, $conn)
 
 function UjCim($frissCim, $conn)
 {
-    $stmt = $conn->prepare("UPDATE adomanyszerv set nev =? where id = ?");
+    $stmt = $conn->prepare("UPDATE felhasznalok set FelhNev =? where FelhID = ?");
     $stmt->execute([
         $frissCim, $_SESSION["userID"]
     ]);
@@ -218,7 +219,7 @@ function UjCim($frissCim, $conn)
 
 function UjLe($frissLe, $conn)
 {
-    $stmt = $conn->prepare("UPDATE adomanyszerv set leiras = ? where id = ?");
+    $stmt = $conn->prepare("UPDATE adomanyszerv_profil set Leiras = ? where FelhID = ?");
     $stmt->execute([
         $frissLe, $_SESSION["userID"]
     ]);
@@ -229,7 +230,7 @@ function UjLe($frissLe, $conn)
 
 function UjJelszo($frissJelszo, $conn)
 {
-    $stmt = $conn->prepare("UPDATE adomanyszerv set jelszo = ? where id = ?");
+    $stmt = $conn->prepare("UPDATE felhasznalok set Jelszo = ? where FelhID = ?");
     $stmt->exeute([
         hash("sha512", $frissJelszo), $_SESSION["userID"]
     ]);
@@ -241,7 +242,8 @@ function UjJelszo($frissJelszo, $conn)
 //adományszervzet törlése
 function AFiokTorles($conn)
 {
-    $stmt = $conn->prepare("DELETE FROM adomanyszerv where id = ?");
+    //! hibás lekérdezés
+    $stmt = $conn->prepare("DELETE FROM felhasznalok  where FelhID = ?");
     $stmt->execute([
         $_SESSION["userID"]
     ]);
@@ -253,7 +255,7 @@ function AFiokTorles($conn)
 //adományszervezet gyűjtései
 function AdoTargyBe($conn)
 {
-    $stmt = $conn->prepare("SELECT * FROM adomanytargy where szervezo = ?");
+    $stmt = $conn->prepare("SELECT * FROM adomanycelok where Szervezo = ?");
     $stmt->execute([
         $_SESSION["userID"]
     ]);
@@ -264,7 +266,7 @@ function AdoTargyBe($conn)
 // Új tárgy létrehozás
 function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
 {
-    $stmt = $conn->prepare("INSERT INTO adomanytargy (cim, leiras, szervezo, cel, minosszeg, jelenleg) VALUES(?,?,?,?,?,?)");
+    $stmt = $conn->prepare("INSERT INTO adomanycelok (Cim, Leiras, Szervezo, Cel, MinOsszeg, Jelenleg) VALUES(?,?,?,?,?,?)");
     $stmt->execute([
         $tNev, $tLeir, $_SESSION["userID"], $tCel, $tMin, 0
     ]);
@@ -277,7 +279,7 @@ function TargyLetrehoz($tNev, $tLeir, $tCel, $tMin, $conn)
 function TargyTorol($tomb, $conn)
 {
     for ($i = 0; $i < count($tomb); $i++) {
-        $stmt = $conn->prepare("DELETE FROM adomanytargy WHERE id=?");
+        $stmt = $conn->prepare("DELETE FROM adomanycelok WHERE CelID=?");
         $stmt->execute([
             $tomb[$i]
         ]);
@@ -291,18 +293,18 @@ function TargyTorol($tomb, $conn)
 //adatok lekérése
 function adatLeker($conn)
 {
-    $stmt = $conn->prepare("SELECT felhasznalok.FelhNev, felhasznalok.Email, felh_profil.Keresztnev, felh_profil.Vezeteknev, felh_profil.Tel, felh_profil.Fabatka from felhasznalok inner join felh_profil on (felhasznalok.FelhID = felh_profil.FelhID) WHERE felhasznalok.FelhID=1");
+    $stmt = $conn->prepare("SELECT felhasznalok.FelhNev, felhasznalok.Email, felh_profil.Keresztnev, felh_profil.Vezeteknev, felh_profil.Tel, felh_profil.Fabatka from felhasznalok inner join felh_profil on (felhasznalok.FelhID = felh_profil.FelhID) WHERE felhasznalok.FelhID=?");
     $stmt->execute([
         $_SESSION["userID"]
     ]);
-    $eredmeny = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //$eredmeny = $eredmeny !== false ? $eredmeny : [];
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
     return json_encode($eredmeny);
 }
 //uj mail
 function UjMailFunc($UjMail, $conn)
 {
-    $stmt = $conn->prepare("UPDATE felhasz set email = ? where id =?");
+    $stmt = $conn->prepare("UPDATE felhasznalok set Email = ? where FelhID =?");
     $stmt->execute([
         $UjMail, $_SESSION["userID"]
     ]);
@@ -313,7 +315,7 @@ function UjMailFunc($UjMail, $conn)
 //uj nev
 function UjNevFunc($UjKer, $UjVez, $conn)
 {
-    $stmt = $conn->prepare("UPDATE felhasz set keresztnev =?, vezeteknev =? where id =?");
+    $stmt = $conn->prepare("UPDATE felh_profil set Keresztnev =?, Vezeteknev =? where FelhID =?");
     $stmt->execute([
         $UjKer, $UjVez, $_SESSION["userID"]
     ]);
@@ -324,7 +326,7 @@ function UjNevFunc($UjKer, $UjVez, $conn)
 //új becenev
 function UjBecFunc($UjBec, $conn)
 {
-    $stmt = $conn->prepare("UPDATE felhasz set becenev =? where id=?");
+    $stmt = $conn->prepare("UPDATE felhasznalok set FelhNev =? where FelhID=?");
     $stmt->execute([
         $UjBec, $_SESSION["userID"]
     ]);
@@ -333,11 +335,21 @@ function UjBecFunc($UjBec, $conn)
     return json_encode($eredmeny);
 }
 //új jelszo
-function UjJelszoFunc($UjJelsz, $conn)
+function UjJelszoFunc($UjJelszo, $conn)
 {
-    $stmt = $conn->prepare("UPDATE felhasz set jelszo=? where id=?");
+    $stmt = $conn->prepare("UPDATE felhasznalok set Jelszo=? where FelhID=?");
     $stmt->execute([
-        hash("sha512", $UjJelsz), $_SESSION["userID"]
+        hash("sha512", $UjJelszo), $_SESSION["userID"]
+    ]);
+    $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
+    $eredmeny = $eredmeny !== false ? $eredmeny : [];
+    return json_encode($eredmeny);
+}
+function UjTelszFunc($UjTel, $conn)
+{
+    $stmt = $conn->prepare("UPDATE felh_profil set Tel=? where FelhID=?");
+    $stmt->execute([
+        $UjTel, $_SESSION["userID"]
     ]);
     $eredmeny = $stmt->fetch(PDO::FETCH_ASSOC);
     $eredmeny = $eredmeny !== false ? $eredmeny : [];

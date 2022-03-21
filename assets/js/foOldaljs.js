@@ -28,17 +28,17 @@ function dialogGeneral(btTomb) {
         //dialog keret
         var dialogKeret = document.createElement("dialog");
         //*egyedi id
-        dialogKeret.id = tomb[index].id + "dia";
+        dialogKeret.id = tomb[index].CelID + "dia";
         dialogKeret.classList = "mdl-dialog";
 
         //dialog cím
         var dialogCim = document.createElement("h4");
-        dialogCim.innerHTML = tomb[index].cim;
+        dialogCim.innerHTML = tomb[index].Cim;
 
         //dialog test ~ a részletes tartalmak ide kerülnek
         var dialogTest = document.createElement("p");
         dialogTest.classList = "mdl-dialog__content";
-        dialogTest.innerHTML = "<b>Leírás</b><br><p>" + tomb[index].leiras + "</p><br><p><b>A gyűjtés állása:</b></p><p><b>Cél: </b>" + tomb[index].cel + "</p><p><b>Jelenleg: </b>" + tomb[index].jelenleg + "</p><br><input class='mdl-slider mdl-js-slider' type='range' min='0' value='" + tomb[index].jelenleg + " max='" + tomb[index].cel + "' readonly='true'>";
+        dialogTest.innerHTML = "<b>Leírás</b><br><p>" + tomb[index].Leiras + "</p><br><p><b>A gyűjtés állása:</b></p><p><b>Cél: </b>" + tomb[index].Cel + "</p><p><b>Jelenleg: </b>" + tomb[index].Jelenleg + "</p>";
 
         //dialog műveletek
         var dialogMuvelet = document.createElement("div");
@@ -47,21 +47,59 @@ function dialogGeneral(btTomb) {
         //dialog bezár
         var dialogBezar = document.createElement("button");
         dialogBezar.innerHTML = "Bezárás";
-        dialogBezar.id = tomb[index].id + "bezar";
-        dialogBezar.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+        dialogBezar.id = tomb[index].CelID + "bezar";
+        dialogBezar.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect";
+
+        //Fizetési lehetőségek
+        //minimum
+        var minFizetes = document.createElement("button");
+        minFizetes.innerHTML = "Minimum összeg fizetése (" + tomb[index].MinOsszeg + ")";
+        minFizetes.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect";
+        minFizetes.id = tomb[index].CelID + "bezar";
+        minFizetes.onclick = function () {
+            fizetes();
+        }
+        //saját összeg (mező)
+        var sajatOsszegdiv = document.createElement("div");
+        sajatOsszegdiv.classList = "mdl-textfield mdl-js-textfield mdl-textfield--floating-label";
+        //saját összeg (label)
+        var sajatOsszeglabel = document.createElement("label");
+        sajatOsszeglabel.classList = "mdl-textfield__label";
+        sajatOsszeglabel.for = "SOErtek";
+        sajatOsszeglabel.innerHTML = "Legalább: " + tomb[index].MinOsszeg;
+        //saját összeg (érték)
+        var sajatOsszegErtek = document.createElement("input");
+        sajatOsszegErtek.classList = "mdl-textfield__input";
+        sajatOsszegErtek.type = "text";
+        sajatOsszegErtek.name = "SOErtek";
+        sajatOsszegErtek.id = tomb[index].CelID + "ertek";
+        //saját összeg (gomb)
+        var sajatOsszegGomb = document.createElement("button");
+        sajatOsszegGomb.id = tomb[index].CelID + "bevitel";
+        sajatOsszegGomb.innerHTML = "Saját összeg fizetése";
+        sajatOsszegGomb.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect";
+        sajatOsszegGomb.onclick = function () {
+            //fizetes
+            fizetes();
+        }
 
         //összeépítés
         oldal.appendChild(dialogKeret);
         dialogKeret.appendChild(dialogCim);
         dialogKeret.appendChild(dialogTest);
+        dialogKeret.appendChild(sajatOsszegdiv);
+        sajatOsszegdiv.appendChild(sajatOsszeglabel);
+        sajatOsszegdiv.appendChild(sajatOsszegErtek);
         dialogKeret.appendChild(dialogMuvelet);
+        dialogMuvelet.appendChild(sajatOsszegGomb);
+        dialogMuvelet.appendChild(minFizetes);
         dialogMuvelet.appendChild(dialogBezar);
 
         //id ellenőrzés
         console.log(dialogKeret);
 
         //*álláspont fissítése
-        // // let jelenlegiErt = tomb[index].jelenleg;
+        // // let jelenlegiErt = tomb[index].Jelneleg;
         // // let celErt = tomb[index].cel;
         // // document.getElementById("allas").addEventListener("mdl-componentupgraded", function () {
         // //     this.MaterialProgress.setProgress(jelenlegiErt);
@@ -87,13 +125,13 @@ function kartyaGeneral(btTomb) {
         const kCim = document.createElement("div");
         kCim.classList = "mdl-card__title";
         const kCimSzoveg = document.createElement("h2");
-        kCimSzoveg.innerText = tomb[index].cim;
+        kCimSzoveg.innerText = tomb[index].Cim;
         kCimSzoveg.classList = "mdl-card__title-text";
 
         //kártya leiras
         const kLeiras = document.createElement("div");
         kLeiras.classList = "mdl-card__supporting-text";
-        kLeiras.innerHTML = tomb[index].leiras;
+        kLeiras.innerHTML = tomb[index].Leiras;
 
         //kartya gomb
         const kGomb = document.createElement("div");
@@ -102,13 +140,13 @@ function kartyaGeneral(btTomb) {
         const kGombButton = document.createElement("button");
         kGombButton.type = "button";
         kGombButton.classList = "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect KartyaOld"; //*a "KartyaOld" saját class, fel lesz használva
-        kGombButton.id = tomb[index].id;
+        kGombButton.id = tomb[index].CelID;
         kGombButton.innerHTML = "Megtekintés";
         kGombButton.onclick = function () {
             Reszlet(btTomb[index].id, btTomb);
 
             //*mdl ver
-            var dialog = document.getElementById(btTomb[index].id + "dia");
+            var dialog = document.getElementById(btTomb[index].CelID + "dia");
             //console.log(dialog);
             if (!dialog.showModal) {
                 dialogPolyfill.registerDialog(dialog);
@@ -119,7 +157,7 @@ function kartyaGeneral(btTomb) {
             dialog.display = "block";
 
             //*dialog bezárása
-            var dialogButtonBezar = document.getElementById(btTomb[index].id + "bezar").addEventListener("click", function () {
+            var dialogButtonBezar = document.getElementById(btTomb[index].CelID + "bezar").addEventListener("click", function () {
                 dialog.close();
             })
         }
@@ -147,8 +185,12 @@ function Reszlet(azonosito, btTomb) {
     console.log(azonosito);
 
     //elem azonosítás
-    const result = btTomb.filter(item => item.id == azonosito)[0];
+    const result = btTomb.filter(item => item.CelID == azonosito)[0];
     console.log(result);
 
     console.log("dialog generálás");
+}
+
+function fizetes() {
+    console.log("fizetés elindult");
 }

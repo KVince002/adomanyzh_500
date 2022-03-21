@@ -1,5 +1,10 @@
 <?php session_start();
 
+
+//csatlakozás másolata
+$conn = new PDO("mysql:host=localhost;dbname=adomany_oldal;charset=utf8;", "root", "");
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 define("BASEDIR", $_SERVER["DOCUMENT_ROOT"] . "/adomanyzh_OOP");
 //http vagy https
 /**

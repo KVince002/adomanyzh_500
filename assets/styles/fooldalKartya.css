@@ -10,6 +10,11 @@
   flex-wrap:wrap;
 }
 
+.mdl-dialog{
+  width: 70%;
+  height: 70%;
+}
+
 @media screen and (max-width: 600px){
   .mdl-card {
   width: 100%;
@@ -25,5 +30,9 @@
   footer{
     /*Footer eltüntető*/
     display: none !important;
+  }
+  .mdl-dialog{
+    height: 100%;
+    width: 100%;
   }
 }

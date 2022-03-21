@@ -17,14 +17,14 @@ function betoltProfil() {
 
             //azonnali frissítések
             var MailLabel = document.getElementById("UjMailLabel");
-            MailLabel.innerHTML = szervadat.email;
+            MailLabel.innerHTML = szervadat.Email;
             var CimLabel = document.getElementById("UjCimLabel");
-            CimLabel.innerHTML = szervadat.nev;
+            CimLabel.innerHTML = szervadat.FelhNev;
             var LeirasLabel = document.getElementById("UjLeLabel");
-            LeirasLabel.innerHTML = szervadat.leiras;
+            LeirasLabel.innerHTML = szervadat.Leiras;
             var BiztosTotliE = document.getElementById("Igen");
             var SzervNev = document.getElementById("nev");
-            SzervNev.innerHTML = szervadat.nev;
+            SzervNev.innerHTML = szervadat.FelhNev;
 
         })
 }
@@ -53,8 +53,8 @@ function betoltTargy() {
                 for (let i = 0; i < targyak.length; i++) {
                     var lista = document.getElementById("TargyMegjl");
                     var VanTargy = document.createElement("li");
-                    VanTargy.innerHTML = targyak[i].cim;
-                    VanTargy.id = targyak[i].id;
+                    VanTargy.innerHTML = targyak[i].Cim;
+                    VanTargy.CelID = targyak[i].CelID;
                     lista.appendChild(VanTargy);
                 }
             }
@@ -62,11 +62,11 @@ function betoltTargy() {
             var seged = "";
             for (let i = 0; i < targyak.length; i++) {
                 seged += "<tr>";
-                seged += "<td><input type='checkbox' class='TargyElem' data-id='" + targyak[i].id + "'>+</td>";
-                seged += "<td>" + targyak[i].cim + "</td>";
-                seged += "<td>" + targyak[i].minosszeg + "</td>";
-                seged += "<td>" + targyak[i].cel + "</td>";
-                seged += "<td>" + targyak[i].jelenleg + "</td>";
+                seged += "<td><input type='checkbox' class='TargyElem' data-id='" + targyak[i].CelID + "'>+</td>";
+                seged += "<td>" + targyak[i].Cim + "</td>";
+                seged += "<td>" + targyak[i].MinOsszeg + "</td>";
+                seged += "<td>" + targyak[i].Cel + "</td>";
+                seged += "<td>" + targyak[i].Jelenleg + "</td>";
                 seged += "</tr>";
             }
             document.getElementById("tablaTest").innerHTML = seged;
@@ -81,7 +81,7 @@ function targyTorol() {
     let TargyElemek = document.getElementsByClassName("TargyElem");
     for (let i = 0; i < TargyElemek.length; i++) {
         if (TargyElemek[i].checked) {
-            KijlTargyElemek.push(TargyElemek[i].dataset.id);
+            KijlTargyElemek.push(TargyElemek[i].dataset.CelID);
         }
     }
     console.log(JSON.stringify(KijlTargyElemek));
@@ -175,8 +175,9 @@ function UjLe() {
     })
         .then(response => response.text())
         .then(request => {
+            console.log(request);
             var siker = JSON.parse(request);
-            if (!siker === true) {
+            if (siker == "[]") {
                 console.log("Sikeres frissítés");
                 alert("Sikres frissítés");
             } else {

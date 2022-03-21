@@ -14,36 +14,36 @@ function adatLeker() {
             console.log(profilAdatok);
 
             //köszöntő név beállítása
-            document.getElementById("nev").innerHTML = profilAdatok.keresztnev;
+            document.getElementById("nev").innerHTML = profilAdatok.Keresztnev;
 
             //azonnali frissítések és frissítések
             //mail
             var MailLabel = document.getElementById("UjMailLabel");
-            MailLabel.innerHTML = profilAdatok.email;
+            MailLabel.innerHTML = profilAdatok.Email;
             const MailGomb = document.getElementById("MailFrissitGomb");
             MailGomb.addEventListener("click", UjMail);
 
             //kez és vez név
             var KerLabel = document.getElementById("UjKeresztnev");
-            KerLabel.innerHTML = profilAdatok.keresztnev;
+            KerLabel.innerHTML = profilAdatok.Keresztnev;
             var VezLabel = document.getElementById("UjVezeteknev");
-            VezLabel.innerHTML = profilAdatok.vezeteknev;
+            VezLabel.innerHTML = profilAdatok.Vezeteknev;
             let KerVerGomb = document.getElementById("NevFrissitGomb");
             KerVerGomb.addEventListener("click", UjKerVer);
 
             //telefonszám
             var TelLabel = document.getElementById("UjTelefonszam");
-            TelLabel.innerHTML = profilAdatok.telefonszam;
+            TelLabel.innerHTML = profilAdatok.Tel;
             const TelGomb = document.getElementById("TelFrissitGomb");
             TelGomb.addEventListener("click", UjTel);
 
             //jelenlegi fabatka
             var febatkaMost = document.getElementById("FabatkaMost");
-            febatkaMost.innerHTML = profilAdatok.fabatka;
+            febatkaMost.innerHTML = profilAdatok.Fabatka;
 
             //becenév
             var BecLabel = document.getElementById("UjBecenev");
-            BecLabel.innerHTML = profilAdatok.becenev;
+            BecLabel.innerHTML = profilAdatok.FelhNev;
             const BecGomb = document.getElementById("BecFrissitGomb");
             BecGomb.addEventListener("click", UjBec);
 
@@ -157,7 +157,7 @@ function adatLeker() {
 
     }
     function UjJelsz() {
-        console.log("UjJelsz");
+        console.log("UjJelszo");
         var JelszIn = document.getElementById("UjJelszo").value;
         const formData = new FormData();
         formData.append("funkcio", "UjJeszoFunc");
